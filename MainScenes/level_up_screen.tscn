@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=3 uid="uid://gvbf2jc7oup1"]
+
+[ext_resource type="Script" path="res://MainScenes/level_up_screen.gd" id="1_xydsh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uc5yt"]
+bg_color = Color(0.141176, 0.611765, 0.658824, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqqj1"]
+bg_color = Color(0.0588235, 0.321569, 0.34902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grs20"]
+bg_color = Color(0.141176, 0.611765, 0.658824, 1)
+
+[node name="levelUpScreen" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xydsh")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.545098)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -80.0
+offset_right = 200.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Button1" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_uc5yt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqqj1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_grs20")
+
+[node name="Label1" type="Label" parent="HBoxContainer/Button1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button2" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_uc5yt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqqj1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_grs20")
+
+[node name="Label2" type="Label" parent="HBoxContainer/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button3" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_uc5yt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqqj1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_grs20")
+
+[node name="Label3" type="Label" parent="HBoxContainer/Button3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button3" to="." method="_on_button_3_pressed"]

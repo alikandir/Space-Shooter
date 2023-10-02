@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3tvb3be8f4ja"]
+
+[ext_resource type="PackedScene" uid="uid://c7kxho4pqppa7" path="res://Enemy/slowShooter.tscn" id="1_pgoei"]
+[ext_resource type="Script" path="res://Enemy/bouncerEnemy.gd" id="2_8nm0d"]
+
+[node name="BouncerEnemy" instance=ExtResource("1_pgoei")]
+script = ExtResource("2_8nm0d")
+horizontalSpeed = 70
+fireRate = 2.0
+verticalSpeed = 0.0
+health = 20

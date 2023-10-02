@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bujl4p1hmgydi"]
+
+[ext_resource type="PackedScene" uid="uid://cea1cxwa6ifyo" path="res://Powerups/power_up.tscn" id="1_xbgxl"]
+[ext_resource type="Script" path="res://Powerups/rapid_fire_power_up.gd" id="2_tfnlt"]
+
+[node name="RapidFirePowerUp" instance=ExtResource("1_xbgxl")]
+script = ExtResource("2_tfnlt")
+"rapidFireTİme" = 4.0
+
+[node name="Sprite2D" parent="." index="0"]
+region_rect = Rect2(530, 3, 190, 190)

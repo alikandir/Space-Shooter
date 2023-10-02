@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhuukrftufvs1"]
+
+[ext_resource type="PackedScene" uid="uid://q7nnie3btpf3" path="res://Bullet/bullet.tscn" id="1_055vt"]
+[ext_resource type="Script" path="res://Bullet/enemyBullet.gd" id="2_j6pb5"]
+[ext_resource type="Texture2D" uid="uid://codfgw2ercb17" path="res://Textures/laserGreen.png" id="3_3kxiy"]
+
+[node name="Bullet" instance=ExtResource("1_055vt")]
+script = ExtResource("2_j6pb5")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_3kxiy")

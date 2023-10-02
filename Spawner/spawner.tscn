@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://p2darqt5xupj"]
+
+[ext_resource type="Script" path="res://Spawner/Spawner.gd" id="1_pxith"]
+
+[node name="Spawner" type="Node2D"]
+position = Vector2(227, 0)
+script = ExtResource("1_pxith")
+minPowerupSpawnTime = 3
+maxPowerupSpawnTime = 20
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="PowerupTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="PowerupTimer" to="." method="_on_powerup_timer_timeout"]
