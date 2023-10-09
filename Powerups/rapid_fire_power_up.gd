@@ -1,5 +1,7 @@
 extends Powerup
 
-@export var rapidFireTİme:float=4
+@export var rapidFireTime:float=4
+func _ready():
+	$AnimatedSprite2D.play("default")
 func applyPowerup(player:Player):
-	player.applyRapidFire(rapidFireTİme)
+	player.applyRapidFire(rapidFireTime)

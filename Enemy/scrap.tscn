@@ -1,0 +1,96 @@
+[gd_scene load_steps=19 format=3 uid="uid://bjuoktc7jkybx"]
+
+[ext_resource type="Script" path="res://Enemy/Scrap.gd" id="1_xe6fv"]
+[ext_resource type="Texture2D" uid="uid://cf2th4owlfndk" path="res://Textures/Scrap/scrap1.png" id="2_7vgb1"]
+[ext_resource type="Texture2D" uid="uid://bjg4nf7rr8tbb" path="res://Textures/Scrap/scrap2.png" id="3_le6rx"]
+[ext_resource type="Texture2D" uid="uid://by434eywcx0xe" path="res://Textures/Scrap/scrap3.png" id="4_hhbw5"]
+[ext_resource type="Texture2D" uid="uid://co0f56jh3ojts" path="res://Textures/Scrap/scrap4.png" id="5_srl0n"]
+[ext_resource type="Texture2D" uid="uid://d4fov0ul56bj7" path="res://Textures/Scrap/scrap5.png" id="6_ga5pq"]
+[ext_resource type="Texture2D" uid="uid://uw4ksgtq1hog" path="res://Textures/Scrap/scrap6.png" id="7_da3ap"]
+[ext_resource type="Texture2D" uid="uid://bhceex5bjbouj" path="res://Textures/Scrap/scrap7.png" id="8_tinfu"]
+[ext_resource type="Texture2D" uid="uid://cpm0ukk6kbg1y" path="res://Textures/Scrap/scrapShield1.png" id="9_0nq8d"]
+[ext_resource type="Texture2D" uid="uid://b1tls0lokteet" path="res://Textures/Scrap/scrapShield2.png" id="10_0hhoh"]
+[ext_resource type="Texture2D" uid="uid://bl8clf4gntbt5" path="res://Textures/Scrap/scrapShield3.png" id="11_2p4gx"]
+[ext_resource type="Texture2D" uid="uid://4b0v8er0ex6t" path="res://Textures/Scrap/scrapShield4.png" id="12_eehnj"]
+[ext_resource type="Texture2D" uid="uid://88il4eaaj1ow" path="res://Textures/Scrap/scrapShield5.png" id="13_xslei"]
+[ext_resource type="Texture2D" uid="uid://crxosbxys5xko" path="res://Textures/Scrap/scrapShield6.png" id="14_hp0s1"]
+[ext_resource type="Texture2D" uid="uid://hpfef6ayfn28" path="res://Textures/Scrap/scrapShield7.png" id="15_40ayi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_byc5r"]
+radius = 15.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vpr4m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7vgb1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_le6rx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hhbw5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_srl0n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ga5pq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_da3ap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tinfu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k3inu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_0nq8d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0hhoh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_2p4gx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_eehnj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_xslei")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_hp0s1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_40ayi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Scrap" type="Area2D"]
+position = Vector2(159, 133)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_xe6fv")
+moveSpeed = 150.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_byc5r")
+
+[node name="Scrap" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vpr4m")
+
+[node name="Shield" type="AnimatedSprite2D" parent="Scrap"]
+sprite_frames = SubResource("SpriteFrames_k3inu")
+frame_progress = 0.783913
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

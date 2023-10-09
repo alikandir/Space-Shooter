@@ -2,21 +2,16 @@ extends Area2D
 class_name Player
 
 @onready var animatedSprite:=$AnimatedSprite2D
+@onready var engineSprite:=$EnginesSprite
 @onready var firingPositions:=$FiringPositions
 @onready var fireDelayTimer:=$FireDelayTimer
 @onready var rapidFireTimer=$RapidFireTimer
 @onready var invincibilityTimer:=$InvincibilityTimer
 @onready var shield:=$InvincibilityShield
 
-
-@export var speed: float=100
-@export var normalFireDelay:float=0.2
-@export var rapidFireDelay=0.1
-var fireDelay= normalFireDelay
-@export var playerHealth:int=3
-@export var invincibilityTime:float=0.5
-
 var vel:= Vector2(0,0)
+var rapidFiring=false
+var additionalBulletLocations=[Vector2(-2,-27), Vector2(-20,-17), Vector2(19,-17)]
 
 ### pl stands for preload
 # loads before when the player is loading
@@ -24,16 +19,20 @@ var plBullet:=preload("res://Bullet/bullet.tscn")
 
 func _ready():
 	shield.visible=false
-	Signals.emit_signal("on_player_life_changed",playerHealth)
+	Signals.emit_signal("on_player_life_changed",PlayerStats.playerHealth)
 	Signals.connect("on_bullets_upgraded", Callable(self,"_on_bullets_upgraded"))
 func _process(delta):
 	shoot(delta)
 	animationControl()
 	screenLimiter()
+	## calculate and send position: 
+	var playerPosition:=Vector2(position.x,position.y)
+	Signals.emit_signal("player_position", playerPosition)
 
 
 func _physics_process(delta):
 	move(delta)
+	
 
 
 
@@ -47,11 +46,11 @@ func move(delta):
 		dirVec.y=1
 	if Input.is_action_pressed("move_up"):
 		dirVec.y=-1
-	vel=dirVec.normalized()*speed
+	vel=dirVec.normalized()*PlayerStats.moveSpeed
 	position+=delta*vel
 
 func shoot(delta):	
-	if Input.is_action_pressed("shoot") and fireDelayTimer.is_stopped():
+	if fireDelayTimer.is_stopped():
 		fireDelayTimer.start(PlayerStats.fireDelay)
 		
 		for child in firingPositions.get_children():
@@ -63,12 +62,9 @@ func shoot(delta):
 
 
 func animationControl():
-	if vel.x<0:
-		animatedSprite.play("Left")
-	elif vel.x>0:
-		animatedSprite.play("Right")
-	else :
-		animatedSprite.play("Straight")
+	animatedSprite.play("Straight")
+	engineSprite.play("default")
+	
 
 func screenLimiter():
 	## Keep the Player within the screen:
@@ -81,27 +77,32 @@ func damage(amount:int):
 	if !invincibilityTimer.is_stopped():
 		return
 	
-	applyShield(invincibilityTime)
+	applyShield(PlayerStats.invincibilityTime)
 	
-	playerHealth-=amount
-	Signals.emit_signal("on_player_life_changed",playerHealth)
+	PlayerStats.playerHealth-=amount
+	Signals.emit_signal("on_player_life_changed",PlayerStats.playerHealth)
 	
 	var cam:=get_tree().current_scene.get_node("Camera")
 	cam.shake(4)
 	
-	if playerHealth<=0:
-		print("player died")
+	if PlayerStats.playerHealth<=0:
+		var plGameOver=preload("res://MainScenes/game_over.tscn")
+		var gameOver = plGameOver.instantiate()
+		gameOver.position=position
+		get_parent().add_child(gameOver)
 		queue_free()
 		
 
 func applyShield(time:float):
-	invincibilityTimer.start(invincibilityTime+invincibilityTimer.time_left)
+	invincibilityTimer.start(time+invincibilityTimer.time_left)
 	shield.visible=true
 	
 func applyRapidFire(time:float):
-	PlayerStats.normalFireDelay=fireDelay
+	if !rapidFiring:
+		PlayerStats.normalFireDelay=PlayerStats.fireDelay
 	PlayerStats.fireDelay=PlayerStats.rapidFireDelay
 	rapidFireTimer.start(time+rapidFireTimer.time_left)
+	rapidFiring=true
 	
 	
 func _on_invincibility_timer_timeout():
@@ -110,8 +111,21 @@ func _on_invincibility_timer_timeout():
 
 func _on_rapid_fire_timer_timeout():
 	PlayerStats.fireDelay=PlayerStats.normalFireDelay
-
+	rapidFiring=false
 func _on_bullets_upgraded(times):
 	match times:
 		1:
-			pass
+			var gunExtra1 =  Node2D.new()
+			gunExtra1.position=additionalBulletLocations[0]
+			$FiringPositions.add_child(gunExtra1)
+		2:
+			var gunExtra2 =  Node2D.new()
+			gunExtra2.position=additionalBulletLocations[1]
+			$FiringPositions.add_child(gunExtra2)
+		3:
+			#remove the option from the upgrades:
+			var capacity_reached=true
+			Signals.emit_signal("bullet_capacity_reached", capacity_reached)
+			var gunExtra3 =  Node2D.new()
+			gunExtra3.position=additionalBulletLocations[2]
+			$FiringPositions.add_child(gunExtra3)

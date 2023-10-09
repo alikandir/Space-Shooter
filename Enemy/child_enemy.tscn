@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7ek4tb1pwucr"]
+
+[ext_resource type="Script" path="res://Enemy/child_enemy.gd" id="1_ep782"]
+[ext_resource type="Texture2D" uid="uid://dh184d8gnq2di" path="res://Textures/Mothership/Child.png" id="2_8xb54"]
+[ext_resource type="Texture2D" uid="uid://du5fi7vb51thh" path="res://Textures/Rocket/ParticleEffect.png" id="3_e13md"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fyqyf"]
+radius = 28.6356
+
+[node name="Child Enemy" type="Area2D" groups=["damageable"]]
+rotation = 1.5708
+scale = Vector2(0.8, 0.8)
+script = ExtResource("1_ep782")
+moveSpeed = 400.0
+verticalSpeed = 5.0
+health = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("2_8xb54")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, -1)
+shape = SubResource("CircleShape2D_fyqyf")
+
+[node name="InitialTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-28.75, 1.2567e-06)
+amount = 20
+lifetime = 0.1
+texture = ExtResource("3_e13md")
+direction = Vector2(-1, 0)
+spread = 59.85
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 38.51
+scale_amount_min = 0.2
+scale_amount_max = 0.5
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

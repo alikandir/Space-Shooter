@@ -20,7 +20,7 @@ func _on_area_entered(area):
 		var bulletEffect:=plBulletEffect.instantiate()
 		bulletEffect.position=position
 		get_parent().add_child(bulletEffect)
-		area.damage(1)
+		area.damage(PlayerStats.playerDamage)
 		
 		var cam:=get_tree().current_scene.get_node("Camera")
 		cam.shake(1.2)

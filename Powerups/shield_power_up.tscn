@@ -1,8 +1,92 @@
-[gd_scene load_steps=3 format=3 uid="uid://bh8g6towfjad8"]
+[gd_scene load_steps=19 format=3 uid="uid://bh8g6towfjad8"]
 
-[ext_resource type="PackedScene" uid="uid://cea1cxwa6ifyo" path="res://Powerups/power_up.tscn" id="1_nu5l1"]
 [ext_resource type="Script" path="res://Powerups/shield_power_up.gd" id="2_eu8vs"]
+[ext_resource type="Texture2D" uid="uid://7ornw3r1vao5" path="res://Textures/ShieldUp/ShieldUp1.png" id="2_l7ymc"]
+[ext_resource type="Texture2D" uid="uid://b6eos2d3qw83b" path="res://Textures/ShieldUp/ShieldUp2.png" id="3_ff20e"]
+[ext_resource type="Texture2D" uid="uid://f81in43e3fjb" path="res://Textures/ShieldUp/ShieldUp3.png" id="4_6c63x"]
+[ext_resource type="Texture2D" uid="uid://xiyfa7ofcbjp" path="res://Textures/ShieldUp/ShieldUp4.png" id="5_eyd41"]
+[ext_resource type="Texture2D" uid="uid://50vaomvm4h6w" path="res://Textures/ShieldUp/ShieldUp5.png" id="6_aqcte"]
+[ext_resource type="Texture2D" uid="uid://b18mwgfh4khc8" path="res://Textures/ShieldUp/ShieldUp6.png" id="7_ljm0o"]
+[ext_resource type="Texture2D" uid="uid://txwog3p66fmf" path="res://Textures/ShieldUp/ShieldUp7.png" id="8_gf3us"]
+[ext_resource type="Texture2D" uid="uid://dvpf45wxr7l6g" path="res://Textures/ShieldUp/ShieldUp8.png" id="9_hbffn"]
+[ext_resource type="Texture2D" uid="uid://cduwdidgwpuuk" path="res://Textures/ShieldUp/ShieldUp9.png" id="10_1rxji"]
+[ext_resource type="Texture2D" uid="uid://bks3gnqdsi7a6" path="res://Textures/ShieldUp/ShieldUp10.png" id="11_tt8s2"]
+[ext_resource type="Texture2D" uid="uid://dbdtxyqdgqhug" path="res://Textures/ShieldUp/ShieldUp11.png" id="12_4smup"]
+[ext_resource type="Texture2D" uid="uid://clfw26rsy3nda" path="res://Textures/ShieldUp/ShieldUp12.png" id="13_0ff3s"]
+[ext_resource type="Texture2D" uid="uid://uaeytcj2ypl5" path="res://Textures/ShieldUp/ShieldUp13.png" id="14_jgxxd"]
+[ext_resource type="Texture2D" uid="uid://b50muambq05o6" path="res://Textures/ShieldUp/ShieldUp14.png" id="15_2fyim"]
+[ext_resource type="Texture2D" uid="uid://dihuuslnk8lov" path="res://Textures/ShieldUp/ShieldUp15.png" id="16_rx8va"]
 
-[node name="ShieldPowerUp" instance=ExtResource("1_nu5l1")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_vfvi4"]
+radius = 50.1597
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ucipn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_l7ymc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ff20e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6c63x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_eyd41")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_aqcte")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ljm0o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_gf3us")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_hbffn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_1rxji")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_tt8s2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_4smup")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_0ff3s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_jgxxd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_2fyim")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_rx8va")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="ShieldPowerUp" type="Area2D"]
+scale = Vector2(0.6, 0.6)
 script = ExtResource("2_eu8vs")
-shieldTime = 5.0
+powerupMoveSpeed = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vfvi4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.5, 1)
+scale = Vector2(4.95, 4.9)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ucipn")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited" flags=18]

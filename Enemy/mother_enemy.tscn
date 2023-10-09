@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://d25f1luxdse1g"]
+
+[ext_resource type="Script" path="res://Enemy/MotherEnemy.gd" id="1_jp2kh"]
+[ext_resource type="Texture2D" uid="uid://bbt2ag0ay0fmh" path="res://Textures/Mothership/Mothership.png" id="2_cr8t5"]
+[ext_resource type="Texture2D" uid="uid://dh184d8gnq2di" path="res://Textures/Mothership/Child.png" id="3_oqa6s"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ni1dd"]
+radius = 32.0
+height = 122.0
+
+[node name="MotherEnemy" type="Area2D" groups=["damageable"]]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_jp2kh")
+verticalSpeed = 100.0
+health = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ni1dd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_cr8t5")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Sprite2D"]
+position = Vector2(4, -54)
+amount = 15
+texture = ExtResource("3_oqa6s")
+direction = Vector2(0, -1)
+spread = 60.52
+gravity = Vector2(0, 0)
+initial_velocity_min = 27.01
+initial_velocity_max = 78.73
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+color = Color(1, 1, 0.235294, 1)
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

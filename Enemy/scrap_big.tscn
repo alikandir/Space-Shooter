@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh5mty4c86yyi"]
+
+[ext_resource type="PackedScene" uid="uid://bjuoktc7jkybx" path="res://Enemy/scrap.tscn" id="1_j8n88"]
+[ext_resource type="Script" path="res://Enemy/scrap_big.gd" id="2_0cbgx"]
+
+[node name="ScrapBig" instance=ExtResource("1_j8n88")]
+scale = Vector2(1.8, 1.8)
+script = ExtResource("2_0cbgx")
+moveSpeed = 150.0

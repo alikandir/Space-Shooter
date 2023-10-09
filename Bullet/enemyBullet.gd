@@ -7,8 +7,8 @@ var plBulletEffect:=preload("res://Bullet/enemy_bullet_effect.tscn")
 
 
 func _physics_process(delta):
-	position.y+=speed*delta
-	
+
+	position.y += speed * delta
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
@@ -17,6 +17,8 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 
 func _on_area_entered(area):
+	if randf()<PlayerStats.dodgeChance:
+		return
 	if area is Player:
 		var bulletEffect:=plBulletEffect.instantiate()
 		bulletEffect.position=position

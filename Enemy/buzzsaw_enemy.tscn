@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://cn10gqcxfnqy0"]
+
+[ext_resource type="Script" path="res://Enemy/buzzsaw_enemy.gd" id="1_konhd"]
+[ext_resource type="Texture2D" uid="uid://oapvxpk6oi2o" path="res://Textures/Buzzsaw/Buzzsaw1.png" id="2_th0va"]
+[ext_resource type="Texture2D" uid="uid://cwcj8b8fjeyeh" path="res://Textures/Buzzsaw/Buzzsaw2.png" id="3_jo4i2"]
+[ext_resource type="Texture2D" uid="uid://ba6p7ngo0067j" path="res://Textures/Buzzsaw/Buzzsaw3.png" id="4_h8y43"]
+[ext_resource type="Texture2D" uid="uid://bkxgt8ci6acin" path="res://Textures/Buzzsaw/Buzzsaw4.png" id="5_pmvlu"]
+[ext_resource type="Texture2D" uid="uid://ol3nuil4ganx" path="res://Textures/Buzzsaw/Buzzsaw5.png" id="6_oec0x"]
+[ext_resource type="Texture2D" uid="uid://bldg5k3tgpcj6" path="res://Textures/Buzzsaw/Buzzsaw6.png" id="7_gmk3m"]
+[ext_resource type="Texture2D" uid="uid://boi2n7ogxm8km" path="res://Textures/Buzzsaw/Buzzsaw7.png" id="8_2pxsx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_btk1b"]
+radius = 42.0119
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8dj8q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_th0va")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jo4i2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_h8y43")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pmvlu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_oec0x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gmk3m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_2pxsx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="BuzzsawEnemy" type="Area2D" groups=["damageable"]]
+script = ExtResource("1_konhd")
+moveSpeed = 400.0
+rotationRate = 120.0
+verticalSpeed = 400.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_btk1b")
+
+[node name="WaitTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8dj8q")
+frame_progress = 0.285383
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_timer_timeout"]

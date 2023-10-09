@@ -1,0 +1,164 @@
+[gd_scene load_steps=22 format=3 uid="uid://2y7vj0r6y6nf"]
+
+[ext_resource type="Script" path="res://Enemy/bouncer_enemy_cross_moving.gd" id="2_ght56"]
+[ext_resource type="Texture2D" uid="uid://bw6v1p7yvmrcu" path="res://Textures/BasicShooterEnemy/BasicShooterGun9.png" id="2_tilbh"]
+[ext_resource type="Texture2D" uid="uid://bn2uw5hrt5rwv" path="res://Textures/BasicShooterEnemy/BasicShooterGun1.png" id="3_on6be"]
+[ext_resource type="Texture2D" uid="uid://dsda8n23b7vea" path="res://Textures/BasicShooterEnemy/BasicShooterGun2.png" id="4_wl21h"]
+[ext_resource type="Texture2D" uid="uid://b31htrmu4eli6" path="res://Textures/BasicShooterEnemy/BasicShooterGun3.png" id="5_j454p"]
+[ext_resource type="Texture2D" uid="uid://b05r5fd2qyuos" path="res://Textures/BasicShooterEnemy/BasicShooterGun4.png" id="6_lbs0x"]
+[ext_resource type="Texture2D" uid="uid://bkm3eigueyd7t" path="res://Textures/BasicShooterEnemy/BasicShooterGun5.png" id="7_7t5ov"]
+[ext_resource type="Texture2D" uid="uid://dqq6rfarn2euc" path="res://Textures/BasicShooterEnemy/BasicShooterGun6.png" id="8_y87he"]
+[ext_resource type="Texture2D" uid="uid://b35hea3nunr8s" path="res://Textures/BasicShooterCross/BasicShooterCross1.png" id="9_j3i4y"]
+[ext_resource type="Texture2D" uid="uid://pxjscfaal335" path="res://Textures/BasicShooterCross/BasicShooterCross2.png" id="10_78bmn"]
+[ext_resource type="Texture2D" uid="uid://jn6cgxkfb8jm" path="res://Textures/BasicShooterCross/BasicShooterCross3.png" id="11_ifd2q"]
+[ext_resource type="Texture2D" uid="uid://n4wcfop7xqjj" path="res://Textures/BasicShooterCross/BasicShooterCross4.png" id="12_mtxck"]
+[ext_resource type="Texture2D" uid="uid://blwolyyxh8jp4" path="res://Textures/BasicShooterCross/BasicShooterCross5.png" id="13_vewtq"]
+[ext_resource type="Texture2D" uid="uid://2eiwtpfmwqmh" path="res://Textures/BasicShooterCross/BasicShooterCross6.png" id="14_334ii"]
+[ext_resource type="Texture2D" uid="uid://b5t4x08705814" path="res://Textures/BasicShooterCross/BasicShooterCross7.png" id="15_iuxgf"]
+[ext_resource type="Texture2D" uid="uid://f7ss7dlrw8cx" path="res://Textures/BasicShooterCross/BasicShooterCross8.png" id="16_8hneo"]
+[ext_resource type="Texture2D" uid="uid://b815xej4bopht" path="res://Textures/BasicShooterCross/BasicShooterCross9.png" id="17_ep13r"]
+[ext_resource type="Texture2D" uid="uid://du5fi7vb51thh" path="res://Textures/Rocket/ParticleEffect.png" id="18_4pmxr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chmcl"]
+size = Vector2(80, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5huf1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tilbh")
+}],
+"loop": true,
+"name": &"not shooting",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_on6be")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wl21h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_j454p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_lbs0x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7t5ov")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_y87he")
+}],
+"loop": true,
+"name": &"shooting",
+"speed": 15.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_or3ra"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_j3i4y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_78bmn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ifd2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_mtxck")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_vewtq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_334ii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_iuxgf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_8hneo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ep13r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CrossMovingBouncerEnemy" type="Area2D" groups=["damageable"]]
+position = Vector2(1, 0)
+scale = Vector2(1.25, 1.25)
+script = ExtResource("2_ght56")
+horizontalSpeed = 200
+fireRate = 1.0
+verticalSpeed = 50.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -7)
+shape = SubResource("RectangleShape2D_chmcl")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.500004, -3)
+scale = Vector2(4.85, 3)
+
+[node name="FireTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FiringPositions" type="Node2D" parent="."]
+
+[node name="LeftGun" type="AnimatedSprite2D" parent="FiringPositions"]
+z_index = 2
+position = Vector2(-25.6, 18.4)
+sprite_frames = SubResource("SpriteFrames_5huf1")
+animation = &"shooting"
+offset = Vector2(0, -15)
+
+[node name="RightGun" type="AnimatedSprite2D" parent="FiringPositions"]
+z_index = 2
+position = Vector2(23.2, 18.4)
+sprite_frames = SubResource("SpriteFrames_5huf1")
+animation = &"shooting"
+offset = Vector2(0, -15)
+
+[node name="ShipSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2.4, -2.4)
+sprite_frames = SubResource("SpriteFrames_or3ra")
+frame = 2
+frame_progress = 0.0277765
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
+position = Vector2(-27.2, -25.6)
+scale = Vector2(1, 1)
+amount = 12
+texture = ExtResource("18_4pmxr")
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+angular_velocity_min = -16.55
+angular_velocity_max = 15.0
+scale_amount_min = 0.0
+scale_amount_max = 1.5
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+position = Vector2(20.8, -24)
+amount = 12
+texture = ExtResource("18_4pmxr")
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+angular_velocity_min = -16.55
+angular_velocity_max = 15.0
+scale_amount_min = 0.0
+scale_amount_max = 1.5
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
+[connection signal="area_exited" from="." to="." method="_on_area_exited" flags=18]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited" flags=18]

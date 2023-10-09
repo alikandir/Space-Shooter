@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://c0y0rb1mu70cc"]
+
+[ext_resource type="Script" path="res://Enemy/rocket_thrower.gd" id="1_d074b"]
+[ext_resource type="Texture2D" uid="uid://x4yqdb35guuh" path="res://Textures/RocketLauncher/RocketLauncher1.png" id="2_mmqyt"]
+[ext_resource type="Texture2D" uid="uid://du5fi7vb51thh" path="res://Textures/Rocket/ParticleEffect.png" id="2_vmtwv"]
+[ext_resource type="Texture2D" uid="uid://ciwuv00lxets6" path="res://Textures/RocketLauncher/RocketLauncher2.png" id="3_hw8g3"]
+[ext_resource type="Texture2D" uid="uid://c4qhk27ff0tx7" path="res://Textures/RocketLauncher/RocketLauncher3.png" id="4_h18sl"]
+[ext_resource type="Texture2D" uid="uid://b1isdssrwoyq" path="res://Textures/RocketLauncher/RocketLauncher4.png" id="5_ivc36"]
+[ext_resource type="Texture2D" uid="uid://dag7ynj8hsugj" path="res://Textures/RocketLauncher/RocketLauncher5.png" id="6_ala1p"]
+[ext_resource type="Texture2D" uid="uid://cntrddgo6x03p" path="res://Textures/RocketLauncher/RocketLauncher6.png" id="7_wt6kx"]
+[ext_resource type="Texture2D" uid="uid://go0m42empkrg" path="res://Textures/RocketLauncher/RocketLauncher7.png" id="8_1wpaa"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ghhoy"]
+radius = 33.0
+height = 98.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mll8p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mmqyt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hw8g3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_h18sl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ivc36")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ala1p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_wt6kx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_1wpaa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="RocketThrower" type="Area2D" groups=["damageable"]]
+script = ExtResource("1_d074b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ghhoy")
+
+[node name="FireTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="FiringPositions" type="Node2D" parent="."]
+
+[node name="Gun" type="Node2D" parent="FiringPositions"]
+position = Vector2(0, 56)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-25, -51)
+lifetime = 0.8
+lifetime_randomness = 0.55
+texture = ExtResource("2_vmtwv")
+direction = Vector2(0, -1)
+spread = 90.52
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 70.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+scale_amount_min = 0.3
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+position = Vector2(25, -51)
+lifetime = 0.8
+lifetime_randomness = 0.55
+texture = ExtResource("2_vmtwv")
+direction = Vector2(0, -1)
+spread = 90.52
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 70.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+scale_amount_min = 0.3
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mll8p")
+frame_progress = 0.744924
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

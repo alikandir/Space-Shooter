@@ -1,66 +1,79 @@
-[gd_scene load_steps=9 format=3 uid="uid://xxo1tuhxv1yd"]
+[gd_scene load_steps=17 format=3 uid="uid://xxo1tuhxv1yd"]
 
-[ext_resource type="Texture2D" uid="uid://b0cv8flevc0ex" path="res://Textures/player_sheet.png" id="1_7jwkm"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_du5n8"]
+[ext_resource type="Texture2D" uid="uid://dc12oacnxeec8" path="res://Textures/PlayerShip/player1.png" id="2_y0r6x"]
+[ext_resource type="Texture2D" uid="uid://dqmkuopxv53oh" path="res://Textures/PlayerShip/player2.png" id="3_4ccep"]
 [ext_resource type="Texture2D" uid="uid://bgkmv772bnl3b" path="res://Textures/shield.png" id="3_ujgnx"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ba1x"]
-size = Vector2(48, 25)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kh0mv"]
-atlas = ExtResource("1_7jwkm")
-region = Rect2(0, 0, 99, 77)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p1dwm"]
-atlas = ExtResource("1_7jwkm")
-region = Rect2(198, 0, 99, 77)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rndg5"]
-atlas = ExtResource("1_7jwkm")
-region = Rect2(99, 0, 99, 77)
+[ext_resource type="Texture2D" uid="uid://uwm0ojgki3ew" path="res://Textures/PlayerShip/player3.png" id="4_s8ydf"]
+[ext_resource type="Texture2D" uid="uid://cvri64lnv1xc2" path="res://Textures/PlayerShip/player4.png" id="5_ncndu"]
+[ext_resource type="Texture2D" uid="uid://jpc48c4t7t8n" path="res://Textures/PlayerShip/player5.png" id="6_npdlm"]
+[ext_resource type="Texture2D" uid="uid://bhe4q5jpvovta" path="res://Textures/PlayerShip/playerEngine1.png" id="8_iv05k"]
+[ext_resource type="Texture2D" uid="uid://bxk5d2hr31ytt" path="res://Textures/PlayerShip/playerEngine2.png" id="9_ampd0"]
+[ext_resource type="Texture2D" uid="uid://brnh2c7sd88id" path="res://Textures/PlayerShip/playerEngine3.png" id="10_uoojh"]
+[ext_resource type="Texture2D" uid="uid://bw5jrdnk7pvmh" path="res://Textures/PlayerShip/playerEngine4.png" id="11_it8ex"]
+[ext_resource type="Texture2D" uid="uid://bufgaf3qu6biw" path="res://Textures/PlayerShip/playerEngine5.png" id="12_7m4qo"]
+[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="13_56dic"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_274yv"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kh0mv")
-}],
-"loop": true,
-"name": &"Left",
-"speed": 5.0
+"texture": ExtResource("2_y0r6x")
 }, {
-"frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p1dwm")
-}],
-"loop": true,
-"name": &"Right",
-"speed": 5.0
+"texture": ExtResource("3_4ccep")
 }, {
-"frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rndg5")
+"texture": ExtResource("4_s8ydf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ncndu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_npdlm")
 }],
 "loop": true,
 "name": &"Straight",
-"speed": 5.0
+"speed": 7.0
 }]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5r386"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_iv05k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ampd0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_uoojh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_it8ex")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_7m4qo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ba1x"]
+size = Vector2(65, 49)
 
 [node name="Player" type="Area2D"]
 position = Vector2(223, 515)
+scale = Vector2(1.25, 1.25)
 script = ExtResource("1_du5n8")
-speed = 250.0
-invincibilityTime = 2.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6.5)
-shape = SubResource("RectangleShape2D_8ba1x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 6.5)
-scale = Vector2(0.75, 0.75)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_274yv")
 animation = &"Straight"
+frame_progress = 0.974107
 
 [node name="FiringPositions" type="Node2D" parent="."]
 
@@ -68,7 +81,7 @@ animation = &"Straight"
 position = Vector2(-35, -10)
 
 [node name="RightGun" type="Node2D" parent="FiringPositions"]
-position = Vector2(33, -9)
+position = Vector2(33, -10)
 
 [node name="FireDelayTimer" type="Timer" parent="."]
 one_shot = true
@@ -82,6 +95,26 @@ texture = ExtResource("3_ujgnx")
 
 [node name="RapidFireTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="EnginesSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 6.5)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_5r386")
+frame_progress = 0.857634
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 6.5)
+shape = SubResource("RectangleShape2D_8ba1x")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Virtual Joystick" parent="CanvasLayer" instance=ExtResource("13_56dic")]
+modulate = Color(1, 1, 1, 0.356863)
+offset_left = 45.0
+offset_top = -190.0
+offset_right = 345.0
+offset_bottom = 110.0
+scale = Vector2(0.5, 0.5)
 
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="RapidFireTimer" to="." method="_on_rapid_fire_timer_timeout"]

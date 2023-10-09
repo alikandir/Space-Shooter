@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://bfd1hwda3btej"]
+
+[ext_resource type="Script" path="res://Enemy/explosionEffect.gd" id="1_f8mjp"]
+[ext_resource type="Texture2D" uid="uid://dvwrf088gt5w7" path="res://Textures/starSmall.png" id="2_h1cti"]
+[ext_resource type="Texture2D" uid="uid://bsfjk0r8od4xl" path="res://Textures/Explosion/Explosion1.png" id="3_xycic"]
+[ext_resource type="Texture2D" uid="uid://des3wh054by4y" path="res://Textures/Explosion/Explosion2.png" id="4_rijwr"]
+[ext_resource type="Texture2D" uid="uid://cylthaownw67u" path="res://Textures/Explosion/Explosion3.png" id="5_8qmjs"]
+[ext_resource type="Texture2D" uid="uid://di7l4m0hq2sub" path="res://Textures/Explosion/Explosion4.png" id="6_53vjr"]
+[ext_resource type="Texture2D" uid="uid://bw8bi2ookhjmf" path="res://Textures/Explosion/Explosion5.png" id="7_esv0o"]
+[ext_resource type="Texture2D" uid="uid://c5ssdnmc1yx65" path="res://Textures/Explosion/Explosion6.png" id="8_oo05s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e4xid"]
+radius = 59.0339
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2t5md"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xycic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rijwr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8qmjs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_53vjr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_esv0o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_oo05s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="ExplosionArea" type="Area2D"]
+script = ExtResource("1_f8mjp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_e4xid")
+
+[node name="Explosion Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
+amount = 20
+explosiveness = 1.0
+texture = ExtResource("2_h1cti")
+emission_shape = 1
+emission_sphere_radius = 45.87
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+color = Color(1, 0, 0.00784314, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3.49999, -5.5)
+scale = Vector2(2.82813, 2.98438)
+sprite_frames = SubResource("SpriteFrames_2t5md")
+frame_progress = 0.718481
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://ce2k53131dday"]
+
+[ext_resource type="Script" path="res://Enemy/EnemyTargetingShooter.gd" id="2_q8l4e"]
+[ext_resource type="Texture2D" uid="uid://c7x3toygivwnt" path="res://Textures/TargetingEnemy/TargetinEnemy.png" id="2_wy5jc"]
+[ext_resource type="Texture2D" uid="uid://b5viv1kjco8vc" path="res://Textures/TargetingEnemy/TargetinEnemyGun1.png" id="3_md50v"]
+[ext_resource type="Texture2D" uid="uid://d141dmgsi78bb" path="res://Textures/TargetingEnemy/TargetinEnemyGun2.png" id="4_xb5ka"]
+[ext_resource type="Texture2D" uid="uid://c8mqwl0f6wlac" path="res://Textures/TargetingEnemy/TargetinEnemyGun3.png" id="5_xtgw6"]
+[ext_resource type="Texture2D" uid="uid://cciug77rlxyqv" path="res://Textures/TargetingEnemy/TargetinEnemyGun4.png" id="6_j5vi6"]
+[ext_resource type="Texture2D" uid="uid://b4ljrqwpx4tp5" path="res://Textures/TargetingEnemy/TargetinEnemyGun5.png" id="7_7aidm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chmcl"]
+size = Vector2(36, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wgroi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"not shooting",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_md50v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xb5ka")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xtgw6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_j5vi6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7aidm")
+}],
+"loop": true,
+"name": &"shooting",
+"speed": 20.0
+}]
+
+[node name="EnemyTargetingShooter" type="Area2D" groups=["damageable"]]
+position = Vector2(1, 0)
+rotation = 1.5708
+scale = Vector2(1.25, 1.25)
+script = ExtResource("2_q8l4e")
+verticalSpeed = 50.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3.99986, -1.00005)
+shape = SubResource("RectangleShape2D_chmcl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+texture = ExtResource("2_wy5jc")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.500004, -3)
+scale = Vector2(4.85, 3)
+
+[node name="FiringPositions" type="Node2D" parent="."]
+
+[node name="Gun" type="AnimatedSprite2D" parent="FiringPositions"]
+position = Vector2(22, -2.00008)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_wgroi")
+animation = &"shooting"
+frame_progress = 0.592847
+offset = Vector2(0, -10)
+
+[node name="FireTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
+[connection signal="area_exited" from="." to="." method="_on_area_exited" flags=18]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited" flags=18]

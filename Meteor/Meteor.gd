@@ -32,7 +32,7 @@ func damage(amount:int):
 		var effect:=plMeteorEffect.instantiate()
 		effect.position=position
 		get_parent().add_child(effect)
-		Signals.emit_signal("on_score_increment",20)
+		Signals.emit_signal("on_score_increment",PlayerStats.meteorScore)
 		queue_free()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():

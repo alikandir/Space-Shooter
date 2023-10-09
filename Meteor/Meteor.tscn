@@ -4,11 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://dtodqfch3lsux" path="res://Textures/meteorBig.png" id="1_bjlny"]
 
 [node name="Meteor" type="Area2D" groups=["damageable"]]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_150pj")
-minSpeed = 20.0
-maxSpeed = 50.0
-minRotationRate = -40.0
-maxRotationRate = 40.0
+minSpeed = 65.0
+maxSpeed = 90.0
+minRotationRate = 40.0
+maxRotationRate = 80.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_bjlny")
@@ -16,7 +17,7 @@ region_rect = Rect2(100, 111, 0, 0)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(3, -4)
-polygon = PackedVector2Array(-70, -3, -46, -37, 10, -50, 56, -11, 64, 34, 13, 58, -23, 31, -56, 32)
+polygon = PackedVector2Array(-32, 2, -43, -23, -24, -39, 5, -43, 20, -34, 39, 10, 24, 36, -10, 51, -31, 46, -46, 28)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(1, 0)

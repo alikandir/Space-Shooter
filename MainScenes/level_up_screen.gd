@@ -7,29 +7,23 @@ extends Control
 @onready var label2 = $HBoxContainer/Button2/Label2
 @onready var label3 = $HBoxContainer/Button3/Label3
 
-var upgradeOptions:Array=["Fire rate up", 
-"+1 bullets",
-"Extend shield power up timer ",
-"+1 Life",
-"Move speed up",
-"Damage up",
-"Power ups spawn faster",
-"More experience gain",
-"Dodge chance increased"
-]
-var upgradeOptionsIndex = []
+
+var upgradeOptionsString = []
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 ### pick a random upgrade
 	var choosenOptions=[]
 	
 	while choosenOptions.size()<3:
-		var randomIndex = randi()% upgradeOptions.size()
-		var choosenUpgrade = upgradeOptions[randomIndex]
+		var randomIndex = randi() % UpgradeOptions.upgradeOptions.size()
+		var choosenUpgrade = UpgradeOptions.upgradeOptions[randomIndex]
 		## ensure no duplicates:
 		if choosenUpgrade not in choosenOptions:
-			choosenOptions.append(upgradeOptions[randomIndex])
-			upgradeOptionsIndex.append(randomIndex)
+			choosenOptions.append(UpgradeOptions.upgradeOptions[randomIndex])
+			upgradeOptionsString.append(UpgradeOptions.upgradeOptions[randomIndex])
 
 ### change the button text
 
@@ -39,27 +33,22 @@ func _ready():
 
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 
 func _on_button_1_pressed():
 	get_tree().paused=false
-	PlayerStats.processLevelUp(upgradeOptionsIndex[0])
+	PlayerStats.processLevelUp(upgradeOptionsString[0])
 	queue_free()
 
 
 func _on_button_2_pressed():
 	get_tree().paused=false
-	PlayerStats.processLevelUp(upgradeOptionsIndex[1])
+	PlayerStats.processLevelUp(upgradeOptionsString[1])
 	queue_free()
 
 func _on_button_3_pressed():
 	get_tree().paused=false
-	PlayerStats.processLevelUp(upgradeOptionsIndex[2])
+	PlayerStats.processLevelUp(upgradeOptionsString[2])
 	queue_free()
 
 
-	
+

@@ -1,11 +1,92 @@
-[gd_scene load_steps=3 format=3 uid="uid://bujl4p1hmgydi"]
+[gd_scene load_steps=19 format=3 uid="uid://bujl4p1hmgydi"]
 
-[ext_resource type="PackedScene" uid="uid://cea1cxwa6ifyo" path="res://Powerups/power_up.tscn" id="1_xbgxl"]
+[ext_resource type="Texture2D" uid="uid://dti311sn46dp2" path="res://Textures/FireRateUp/FireRateUp1.png" id="2_p4rao"]
 [ext_resource type="Script" path="res://Powerups/rapid_fire_power_up.gd" id="2_tfnlt"]
+[ext_resource type="Texture2D" uid="uid://bm730bvhxf0tg" path="res://Textures/FireRateUp/FireRateUp2.png" id="3_unejf"]
+[ext_resource type="Texture2D" uid="uid://cme17c0q7btis" path="res://Textures/FireRateUp/FireRateUp3.png" id="4_c8fdp"]
+[ext_resource type="Texture2D" uid="uid://ccgoimsun34we" path="res://Textures/FireRateUp/FireRateUp4.png" id="5_6q8pw"]
+[ext_resource type="Texture2D" uid="uid://44dgiqur728w" path="res://Textures/FireRateUp/FireRateUp5.png" id="6_osaoq"]
+[ext_resource type="Texture2D" uid="uid://8clen7pyyf3s" path="res://Textures/FireRateUp/FireRateUp6.png" id="7_s4p0a"]
+[ext_resource type="Texture2D" uid="uid://dkya1x6bp5io" path="res://Textures/FireRateUp/FireRateUp7.png" id="8_iaweq"]
+[ext_resource type="Texture2D" uid="uid://dcafrfkay1tlx" path="res://Textures/FireRateUp/FireRateUp8.png" id="9_o33a7"]
+[ext_resource type="Texture2D" uid="uid://b7gouyeluk6ms" path="res://Textures/FireRateUp/FireRateUp9.png" id="10_raa54"]
+[ext_resource type="Texture2D" uid="uid://og06hxsoa5ya" path="res://Textures/FireRateUp/FireRateUp10.png" id="11_dmbvq"]
+[ext_resource type="Texture2D" uid="uid://d0wie6wwhc3cx" path="res://Textures/FireRateUp/FireRateUp11.png" id="12_r3i85"]
+[ext_resource type="Texture2D" uid="uid://cj71otltg1ufm" path="res://Textures/FireRateUp/FireRateUp12.png" id="13_17fp8"]
+[ext_resource type="Texture2D" uid="uid://c1l3g7j3scosp" path="res://Textures/FireRateUp/FireRateUp13.png" id="14_wq44n"]
+[ext_resource type="Texture2D" uid="uid://cfldax27fcx2y" path="res://Textures/FireRateUp/FireRateUp14.png" id="15_jce3b"]
+[ext_resource type="Texture2D" uid="uid://bgmh71a5uj22d" path="res://Textures/FireRateUp/FireRateUp15.png" id="16_j4cpe"]
 
-[node name="RapidFirePowerUp" instance=ExtResource("1_xbgxl")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_vfvi4"]
+radius = 50.1597
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_21l5y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_p4rao")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_unejf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c8fdp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_6q8pw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_osaoq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_s4p0a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_iaweq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_o33a7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_raa54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_dmbvq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_r3i85")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_17fp8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_wq44n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_jce3b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_j4cpe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="RapidFirePowerUp" type="Area2D"]
+scale = Vector2(0.6, 0.6)
 script = ExtResource("2_tfnlt")
-"rapidFireTİme" = 4.0
+powerupMoveSpeed = 100.0
 
-[node name="Sprite2D" parent="." index="0"]
-region_rect = Rect2(530, 3, 190, 190)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vfvi4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1, -0.499995)
+scale = Vector2(5, 5.15)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_21l5y")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited" flags=18]

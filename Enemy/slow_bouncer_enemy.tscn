@@ -1,0 +1,165 @@
+[gd_scene load_steps=22 format=3 uid="uid://cr0wds5jofna2"]
+
+[ext_resource type="Script" path="res://Enemy/bouncerEnemy.gd" id="1_pt7oy"]
+[ext_resource type="Texture2D" uid="uid://bw6v1p7yvmrcu" path="res://Textures/BasicShooterEnemy/BasicShooterGun9.png" id="2_he50b"]
+[ext_resource type="Texture2D" uid="uid://bn2uw5hrt5rwv" path="res://Textures/BasicShooterEnemy/BasicShooterGun1.png" id="3_n0kmi"]
+[ext_resource type="Texture2D" uid="uid://dsda8n23b7vea" path="res://Textures/BasicShooterEnemy/BasicShooterGun2.png" id="4_yfnws"]
+[ext_resource type="Texture2D" uid="uid://b31htrmu4eli6" path="res://Textures/BasicShooterEnemy/BasicShooterGun3.png" id="5_n66u1"]
+[ext_resource type="Texture2D" uid="uid://b05r5fd2qyuos" path="res://Textures/BasicShooterEnemy/BasicShooterGun4.png" id="6_3bsef"]
+[ext_resource type="Texture2D" uid="uid://bkm3eigueyd7t" path="res://Textures/BasicShooterEnemy/BasicShooterGun5.png" id="7_whi67"]
+[ext_resource type="Texture2D" uid="uid://dqq6rfarn2euc" path="res://Textures/BasicShooterEnemy/BasicShooterGun6.png" id="8_15q41"]
+[ext_resource type="Texture2D" uid="uid://cod13rhxwijd5" path="res://Textures/BasicShooterEnemy/BasicShooter1.png" id="9_l2wou"]
+[ext_resource type="Texture2D" uid="uid://dko4sx7knolsd" path="res://Textures/BasicShooterEnemy/BasicShooter2.png" id="10_3oe46"]
+[ext_resource type="Texture2D" uid="uid://bk1bi7t3wbopi" path="res://Textures/BasicShooterEnemy/BasicShooter3.png" id="11_oxb65"]
+[ext_resource type="Texture2D" uid="uid://btv5oqr2un64l" path="res://Textures/BasicShooterEnemy/BasicShooter4.png" id="12_b83gb"]
+[ext_resource type="Texture2D" uid="uid://c1aym2b0pnqkf" path="res://Textures/BasicShooterEnemy/BasicShooter5.png" id="13_a8eg3"]
+[ext_resource type="Texture2D" uid="uid://dlfuxuf4xp0vy" path="res://Textures/BasicShooterEnemy/BasicShooter6.png" id="14_m10wi"]
+[ext_resource type="Texture2D" uid="uid://ddkpdwhmeuafq" path="res://Textures/BasicShooterEnemy/BasicShooter7.png" id="15_27ney"]
+[ext_resource type="Texture2D" uid="uid://by1vv4xicbf10" path="res://Textures/BasicShooterEnemy/BasicShooter8.png" id="16_0ojyl"]
+[ext_resource type="Texture2D" uid="uid://daxq2pihswcjh" path="res://Textures/BasicShooterEnemy/BasicShooter9.png" id="17_wgmmq"]
+[ext_resource type="Texture2D" uid="uid://du5fi7vb51thh" path="res://Textures/Rocket/ParticleEffect.png" id="18_jqapd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chmcl"]
+size = Vector2(80, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5huf1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_he50b")
+}],
+"loop": true,
+"name": &"not shooting",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_n0kmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yfnws")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_n66u1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3bsef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_whi67")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_15q41")
+}],
+"loop": true,
+"name": &"shooting",
+"speed": 15.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c82kp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_l2wou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_3oe46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_oxb65")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_b83gb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_a8eg3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_m10wi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_27ney")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_0ojyl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_wgmmq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SlowBouncerEnemy" type="Area2D" groups=["damageable"]]
+position = Vector2(1, 0)
+scale = Vector2(1.25, 1.25)
+script = ExtResource("1_pt7oy")
+horizontalSpeed = 80
+fireRate = 2.5
+verticalSpeed = 200.0
+health = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -7)
+shape = SubResource("RectangleShape2D_chmcl")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.500004, -3)
+scale = Vector2(4.85, 3)
+
+[node name="FireTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FiringPositions" type="Node2D" parent="."]
+
+[node name="LeftGun" type="AnimatedSprite2D" parent="FiringPositions"]
+z_index = 2
+position = Vector2(-26, 17)
+sprite_frames = SubResource("SpriteFrames_5huf1")
+animation = &"shooting"
+offset = Vector2(0, -15)
+
+[node name="RightGun" type="AnimatedSprite2D" parent="FiringPositions"]
+z_index = 2
+position = Vector2(24, 17)
+sprite_frames = SubResource("SpriteFrames_5huf1")
+animation = &"shooting"
+offset = Vector2(0, -15)
+
+[node name="ShipSprite" type="AnimatedSprite2D" parent="."]
+z_index = -1
+position = Vector2(-2, -2)
+sprite_frames = SubResource("SpriteFrames_c82kp")
+frame = 8
+frame_progress = 0.574133
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
+position = Vector2(-27.2, -27.2)
+amount = 12
+texture = ExtResource("18_jqapd")
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+angular_velocity_min = -16.55
+angular_velocity_max = 15.0
+scale_amount_min = 0.0
+scale_amount_max = 1.5
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+position = Vector2(20.8, -24)
+amount = 12
+texture = ExtResource("18_jqapd")
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+angular_velocity_min = -16.55
+angular_velocity_max = 15.0
+scale_amount_min = 0.0
+scale_amount_max = 1.5
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
+[connection signal="area_exited" from="." to="." method="_on_area_exited" flags=18]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited" flags=18]

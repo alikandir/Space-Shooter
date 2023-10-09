@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://wxmxyv7sescd" path="res://Textures/enemyShip.png" id="3_phehr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chmcl"]
-size = Vector2(90, 38)
+size = Vector2(80, 34)
 
 [node name="SlowShooter" instance=ExtResource("1_o36sc")]
 script = ExtResource("2_q7lrr")
@@ -14,7 +14,7 @@ verticalSpeed = 20.0
 health = 10
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, -4)
+position = Vector2(-1, -7)
 shape = SubResource("RectangleShape2D_chmcl")
 
 [node name="Sprite2D" parent="." index="1"]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6fss8qm3yfnq"]
+
+[ext_resource type="Script" path="res://MainScenes/parallaxBg.gd" id="1_84wsa"]
+[ext_resource type="Texture2D" uid="uid://dqc4dvkmrrwj5" path="res://Textures/SpaceBg.png" id="2_qlyoi"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+script = ExtResource("1_84wsa")
+scrollSpeed = 100
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(0, 2400)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+texture_repeat = 2
+position = Vector2(240, 0)
+scale = Vector2(1.001, 1)
+texture = ExtResource("2_qlyoi")

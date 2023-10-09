@@ -1,6 +1,7 @@
 extends  Powerup
 
-@export var shieldTime:float=5
 
+func _ready():
+	$AnimatedSprite2D.play("default")
 func applyPowerup(player:Player):
-	player.applyShield(shieldTime)
+	player.applyShield(PlayerStats.shieldTime)
