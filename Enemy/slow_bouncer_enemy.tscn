@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cr0wds5jofna2"]
+[gd_scene load_steps=27 format=3 uid="uid://cr0wds5jofna2"]
 
 [ext_resource type="Script" path="res://Enemy/bouncerEnemy.gd" id="1_pt7oy"]
 [ext_resource type="Texture2D" uid="uid://bw6v1p7yvmrcu" path="res://Textures/BasicShooterEnemy/BasicShooterGun9.png" id="2_he50b"]
@@ -19,7 +19,6 @@
 [ext_resource type="Texture2D" uid="uid://by1vv4xicbf10" path="res://Textures/BasicShooterEnemy/BasicShooter8.png" id="16_0ojyl"]
 [ext_resource type="Texture2D" uid="uid://daxq2pihswcjh" path="res://Textures/BasicShooterEnemy/BasicShooter9.png" id="17_wgmmq"]
 [ext_resource type="Texture2D" uid="uid://du5fi7vb51thh" path="res://Textures/Rocket/ParticleEffect.png" id="18_jqapd"]
-[ext_resource type="AudioStream" uid="uid://dkd8tusoe1yfn" path="res://SFX/hitSound.wav" id="20_rchnf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chmcl"]
 size = Vector2(80, 34)
@@ -209,9 +208,6 @@ scale_amount_max = 1.5
 libraries = {
 "": SubResource("AnimationLibrary_x6o45")
 }
-
-[node name="HitSound" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("20_rchnf")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
 [connection signal="area_exited" from="." to="." method="_on_area_exited" flags=18]
