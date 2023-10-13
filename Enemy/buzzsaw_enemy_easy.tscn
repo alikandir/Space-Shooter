@@ -1,0 +1,122 @@
+[gd_scene load_steps=16 format=3 uid="uid://umufi21axfog"]
+
+[ext_resource type="Script" path="res://Enemy/buzzsaw_enemy_easy.gd" id="1_s44s1"]
+[ext_resource type="Texture2D" uid="uid://oapvxpk6oi2o" path="res://Textures/Buzzsaw/Buzzsaw1.png" id="2_8sees"]
+[ext_resource type="Shader" uid="uid://b1g6ju0gh6n1g" path="res://Shaders/hitFlash.tres" id="2_a8qbo"]
+[ext_resource type="Texture2D" uid="uid://cwcj8b8fjeyeh" path="res://Textures/Buzzsaw/Buzzsaw2.png" id="3_0mvf7"]
+[ext_resource type="Texture2D" uid="uid://ba6p7ngo0067j" path="res://Textures/Buzzsaw/Buzzsaw3.png" id="4_20xpv"]
+[ext_resource type="Texture2D" uid="uid://bkxgt8ci6acin" path="res://Textures/Buzzsaw/Buzzsaw4.png" id="5_ewqoa"]
+[ext_resource type="Texture2D" uid="uid://ol3nuil4ganx" path="res://Textures/Buzzsaw/Buzzsaw5.png" id="6_uh54a"]
+[ext_resource type="Texture2D" uid="uid://bldg5k3tgpcj6" path="res://Textures/Buzzsaw/Buzzsaw6.png" id="7_sth0b"]
+[ext_resource type="Texture2D" uid="uid://boi2n7ogxm8km" path="res://Textures/Buzzsaw/Buzzsaw7.png" id="8_ej6g7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_btk1b"]
+radius = 42.0119
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkouk"]
+resource_local_to_scene = true
+shader = ExtResource("2_a8qbo")
+shader_parameter/hit = false
+shader_parameter/Tint = Color(1, 1, 1, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8dj8q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8sees")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0mvf7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_20xpv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ewqoa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_uh54a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_sth0b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ej6g7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="Animation" id="Animation_owtj1"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_rfdet"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h2dwr"]
+_data = {
+"RESET": SubResource("Animation_rfdet"),
+"hit_flash": SubResource("Animation_owtj1")
+}
+
+[node name="BuzzsawEnemyEasy" type="Area2D" groups=["damageable"]]
+position = Vector2(200, 85)
+script = ExtResource("1_s44s1")
+moveSpeed = 250.0
+rotationRate = 0.0
+verticalSpeed = 300.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_btk1b")
+
+[node name="WaitTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 0.4, 1)
+material = SubResource("ShaderMaterial_lkouk")
+sprite_frames = SubResource("SpriteFrames_8dj8q")
+frame = 1
+frame_progress = 0.711263
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2.38419e-07, -0.5)
+scale = Vector2(4.7, 4.55)
+
+[node name="HitFlashAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_h2dwr")
+}
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
+[connection signal="area_exited" from="." to="." method="_on_area_exited" flags=18]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_timer_timeout" flags=18]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited" flags=18]

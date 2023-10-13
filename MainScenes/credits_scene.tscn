@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccdn4xpp48smi"]
+
+[ext_resource type="Texture2D" uid="uid://dqc4dvkmrrwj5" path="res://Textures/SpaceBg.png" id="1_s8hni"]
+
+[sub_resource type="GDScript" id="GDScript_l5vi0"]
+script/source = "extends Control
+
+
+
+func _on_return_button_pressed():
+	queue_free()
+"
+
+[node name="CreditsScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = SubResource("GDScript_l5vi0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_s8hni")
+
+[node name="ReturnButton" type="Button" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -360.0
+offset_right = 50.0
+offset_bottom = -260.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Return"
+
+[connection signal="pressed" from="CanvasLayer/ReturnButton" to="." method="_on_return_button_pressed"]

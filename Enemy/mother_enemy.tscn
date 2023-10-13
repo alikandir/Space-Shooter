@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://d25f1luxdse1g"]
+[gd_scene load_steps=10 format=3 uid="uid://d25f1luxdse1g"]
 
 [ext_resource type="Script" path="res://Enemy/MotherEnemy.gd" id="1_jp2kh"]
+[ext_resource type="Shader" uid="uid://b1g6ju0gh6n1g" path="res://Shaders/hitFlash.tres" id="2_40fd5"]
 [ext_resource type="Texture2D" uid="uid://bbt2ag0ay0fmh" path="res://Textures/Mothership/Mothership.png" id="2_cr8t5"]
 [ext_resource type="Texture2D" uid="uid://dh184d8gnq2di" path="res://Textures/Mothership/Child.png" id="3_oqa6s"]
 
@@ -8,19 +9,62 @@
 radius = 32.0
 height = 122.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j7foi"]
+resource_local_to_scene = true
+shader = ExtResource("2_40fd5")
+shader_parameter/hit = false
+shader_parameter/Tint = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_uubge"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_nlt0g"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x6o45"]
+_data = {
+"RESET": SubResource("Animation_nlt0g"),
+"hit_flash": SubResource("Animation_uubge")
+}
+
 [node name="MotherEnemy" type="Area2D" groups=["damageable"]]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_jp2kh")
-verticalSpeed = 100.0
-health = 10
+verticalSpeed = 80.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_ni1dd")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="ShipSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_j7foi")
 texture = ExtResource("2_cr8t5")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Sprite2D"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ShipSprite"]
 position = Vector2(4, -54)
 amount = 15
 texture = ExtResource("3_oqa6s")
@@ -35,5 +79,15 @@ color = Color(1, 1, 0.235294, 1)
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1, -2)
+scale = Vector2(3.76667, 6.66667)
+
+[node name="HitFlashAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x6o45")
+}
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

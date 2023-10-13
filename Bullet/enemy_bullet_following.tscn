@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://w5q3d3pehmmo"]
+[gd_scene load_steps=5 format=3 uid="uid://w5q3d3pehmmo"]
 
 [ext_resource type="PackedScene" uid="uid://bhuukrftufvs1" path="res://Bullet/enemyBullet.tscn" id="1_o420m"]
 [ext_resource type="Script" path="res://Bullet/enemyBulletFollowing.gd" id="2_sammv"]
 [ext_resource type="Texture2D" uid="uid://b4ljrqwpx4tp5" path="res://Textures/TargetingEnemy/TargetinEnemyGun5.png" id="3_tlvba"]
+[ext_resource type="Texture2D" uid="uid://d3yrpg5kb7uoj" path="res://Textures/BulletParticleEffectTargetingEnemy.png" id="4_n54gr"]
 
 [node name="enemyBulletFollowing" instance=ExtResource("1_o420m")]
-scale = Vector2(3, 3)
+scale = Vector2(4, 4)
 script = ExtResource("2_sammv")
-speed = 350.0
+speed = 400.0
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("3_tlvba")
@@ -15,3 +16,12 @@ offset = Vector2(0, -10)
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(2, 0)
+
+[node name="CPUParticles2D" parent="." index="3"]
+position = Vector2(2.33333, 0)
+texture = ExtResource("4_n54gr")
+emission_shape = 1
+emission_sphere_radius = 6.34
+angle_min = 0.0
+angle_max = 0.0
+scale_amount_min = 0.1

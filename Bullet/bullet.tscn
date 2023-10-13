@@ -1,14 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://q7nnie3btpf3"]
+[gd_scene load_steps=5 format=3 uid="uid://q7nnie3btpf3"]
 
 [ext_resource type="Texture2D" uid="uid://dhpgcomup8sek" path="res://Textures/laserRed.png" id="1_531er"]
 [ext_resource type="Script" path="res://Bullet/bullet.gd" id="1_mw3b3"]
+[ext_resource type="Texture2D" uid="uid://dy52yyw3ejp10" path="res://Textures/BulletParticleEffect.png" id="3_7h6rl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qxkka"]
 radius = 5.0
-height = 34.0
+height = 13.3333
 
 [node name="Bullet" type="Area2D"]
+scale = Vector2(1.25, 1.25)
 script = ExtResource("1_mw3b3")
+speed = 700.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_531er")
@@ -19,6 +22,20 @@ shape = SubResource("CapsuleShape2D_qxkka")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, 1)
 scale = Vector2(0.728513, 2.04303)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 19)
+amount = 6
+lifetime = 0.3
+texture = ExtResource("3_7h6rl")
+direction = Vector2(0, 1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+angle_min = 40.0
+angle_max = 90.0
+scale_amount_min = 0.2
+scale_amount_max = 0.8
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

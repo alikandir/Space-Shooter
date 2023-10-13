@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://b3tvb3be8f4ja"]
+[gd_scene load_steps=27 format=3 uid="uid://b3tvb3be8f4ja"]
 
 [ext_resource type="Script" path="res://Enemy/bouncerEnemy.gd" id="2_8nm0d"]
+[ext_resource type="Shader" uid="uid://b1g6ju0gh6n1g" path="res://Shaders/hitFlash.tres" id="9_lmd30"]
 [ext_resource type="Texture2D" uid="uid://bab788hw3xl63" path="res://Textures/BasicShooterFast/BasicShooterFast1.png" id="9_q5cfg"]
 [ext_resource type="Texture2D" uid="uid://diuackeebfd3i" path="res://Textures/BasicShooterFast/BasicShooterFast2.png" id="10_kec7h"]
 [ext_resource type="Texture2D" uid="uid://bn2uw5hrt5rwv" path="res://Textures/BasicShooterEnemy/BasicShooterGun1.png" id="11_5hljc"]
@@ -56,6 +57,12 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yw28y"]
+resource_local_to_scene = true
+shader = ExtResource("9_lmd30")
+shader_parameter/hit = false
+shader_parameter/Tint = Color(1, 1, 1, 1)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ewj6l"]
 animations = [{
 "frames": [{
@@ -91,14 +98,50 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_uubge"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_nlt0g"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x6o45"]
+_data = {
+"RESET": SubResource("Animation_nlt0g"),
+"hit_flash": SubResource("Animation_uubge")
+}
+
 [node name="BouncerEnemy" type="Area2D" groups=["damageable"]]
 position = Vector2(1, 0)
-scale = Vector2(1.25, 1.25)
+scale = Vector2(1.5, 1.5)
 script = ExtResource("2_8nm0d")
 horizontalSpeed = 200
-fireRate = 1.0
+fireRate = 1.5
 verticalSpeed = 30.0
-health = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -7)
@@ -128,6 +171,7 @@ animation = &"shooting"
 offset = Vector2(0, -15)
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_yw28y")
 position = Vector2(-2.4, -1.6)
 sprite_frames = SubResource("SpriteFrames_ewj6l")
 
@@ -156,6 +200,11 @@ angular_velocity_min = -16.55
 angular_velocity_max = 15.0
 scale_amount_min = 0.0
 scale_amount_max = 1.5
+
+[node name="HitFlashAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x6o45")
+}
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
 [connection signal="area_exited" from="." to="." method="_on_area_exited" flags=18]

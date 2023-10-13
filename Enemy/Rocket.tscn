@@ -30,9 +30,10 @@ point_count = 5
 
 [node name="Rocket" type="Area2D"]
 rotation = 1.5708
+scale = Vector2(1.25, 1.25)
 script = ExtResource("1_d2apa")
-speed = 220
-countdown = 2.3
+speed = 200
+countdown = 3.0
 
 [node name="Countdown" type="Timer" parent="."]
 wait_time = 2.0

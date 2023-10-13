@@ -2,20 +2,21 @@ extends BouncerEnemy
 class_name TargetingEnemy
 var playerPosition:Vector2
 @onready var gun:AnimatedSprite2D=get_node("FiringPositions/Gun")
+
+
 func _ready():
-	
+	health=PlayerStats.enemyHealths["bigEnemyHealth"]
 	plBullet=preload("res://Bullet/enemy_bullet_following.tscn")
 	Signals.connect("player_position",Callable(self,"get_player_position"))
 func _physics_process(delta):
 	if !inPlace:
 		position.y+=delta*verticalSpeed*10
-		if position.y>200:
+		if position.y>250:
 			inPlace=true
 			canShoot=true
 			
 	CollisionDamage()
 	PlayAnimation()
-	print_debug($FireTimer.time_left)
 	if inPlace:
 		look_at(playerPosition)
 		

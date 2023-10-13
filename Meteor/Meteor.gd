@@ -5,8 +5,11 @@ class_name Meteor
 
 @export var minRotationRate:float=-10
 @export var maxRotationRate:float=10
-@export var meteorHealth:int=20
+@onready var meteorHealth= PlayerStats.enemyHealths["toughEnemyHealth"]
+@onready var hit_flash_anim=$HitFlash
 
+var plHitSound=preload("res://SFX/hit_sound.tscn")
+var plDeathSound=preload("res://SFX/death_sound_enemy.tscn")
 var plMeteorEffect:=preload("res://Meteor/meteor_effect.tscn")
 var speed:float=0
 var rotationRate=0
@@ -24,11 +27,21 @@ func _physics_process(delta):
 	
 	rotation_degrees+=rotationRate*delta
 
-func damage(amount:int):
+func damage(amount:float):
 	if meteorHealth<=0:
 		return
 	meteorHealth-=amount
+	hit_flash_anim.play("hit_flash")
+	var hitSound=plHitSound.instantiate()
+	hitSound.position=position
+	get_tree().current_scene.add_child(hitSound)
+	
 	if meteorHealth<=0:
+		var deathSound=plDeathSound.instantiate()
+		deathSound.global_position=global_position
+		get_tree().current_scene.add_child(deathSound)
+		
+		
 		var effect:=plMeteorEffect.instantiate()
 		effect.position=position
 		get_parent().add_child(effect)

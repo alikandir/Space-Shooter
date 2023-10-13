@@ -1,11 +1,55 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7ek4tb1pwucr"]
+[gd_scene load_steps=10 format=3 uid="uid://c7ek4tb1pwucr"]
 
 [ext_resource type="Script" path="res://Enemy/child_enemy.gd" id="1_ep782"]
 [ext_resource type="Texture2D" uid="uid://dh184d8gnq2di" path="res://Textures/Mothership/Child.png" id="2_8xb54"]
+[ext_resource type="Shader" uid="uid://b1g6ju0gh6n1g" path="res://Shaders/hitFlash.tres" id="2_duimj"]
 [ext_resource type="Texture2D" uid="uid://du5fi7vb51thh" path="res://Textures/Rocket/ParticleEffect.png" id="3_e13md"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c77n1"]
+resource_local_to_scene = true
+shader = ExtResource("2_duimj")
+shader_parameter/hit = false
+shader_parameter/Tint = Color(1, 1, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fyqyf"]
 radius = 28.6356
+
+[sub_resource type="Animation" id="Animation_uubge"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_nlt0g"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x6o45"]
+_data = {
+"RESET": SubResource("Animation_nlt0g"),
+"hit_flash": SubResource("Animation_uubge")
+}
 
 [node name="Child Enemy" type="Area2D" groups=["damageable"]]
 rotation = 1.5708
@@ -13,9 +57,9 @@ scale = Vector2(0.8, 0.8)
 script = ExtResource("1_ep782")
 moveSpeed = 400.0
 verticalSpeed = 5.0
-health = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="ShipSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_c77n1")
 rotation = -1.5708
 texture = ExtResource("2_8xb54")
 
@@ -40,5 +84,13 @@ initial_velocity_max = 38.51
 scale_amount_min = 0.2
 scale_amount_max = 0.5
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="HitFlashAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x6o45")
+}
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -1,0 +1,120 @@
+[gd_scene load_steps=19 format=3 uid="uid://xxo1tuhxv1yd"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_du5n8"]
+[ext_resource type="Texture2D" uid="uid://dc12oacnxeec8" path="res://Textures/PlayerShip/player1.png" id="2_y0r6x"]
+[ext_resource type="Texture2D" uid="uid://dqmkuopxv53oh" path="res://Textures/PlayerShip/player2.png" id="3_4ccep"]
+[ext_resource type="Texture2D" uid="uid://bgkmv772bnl3b" path="res://Textures/shield.png" id="3_ujgnx"]
+[ext_resource type="Texture2D" uid="uid://uwm0ojgki3ew" path="res://Textures/PlayerShip/player3.png" id="4_s8ydf"]
+[ext_resource type="Texture2D" uid="uid://cvri64lnv1xc2" path="res://Textures/PlayerShip/player4.png" id="5_ncndu"]
+[ext_resource type="Texture2D" uid="uid://jpc48c4t7t8n" path="res://Textures/PlayerShip/player5.png" id="6_npdlm"]
+[ext_resource type="Texture2D" uid="uid://bhe4q5jpvovta" path="res://Textures/PlayerShip/playerEngine1.png" id="8_iv05k"]
+[ext_resource type="Texture2D" uid="uid://bxk5d2hr31ytt" path="res://Textures/PlayerShip/playerEngine2.png" id="9_ampd0"]
+[ext_resource type="Texture2D" uid="uid://brnh2c7sd88id" path="res://Textures/PlayerShip/playerEngine3.png" id="10_uoojh"]
+[ext_resource type="Texture2D" uid="uid://bw5jrdnk7pvmh" path="res://Textures/PlayerShip/playerEngine4.png" id="11_it8ex"]
+[ext_resource type="Texture2D" uid="uid://bufgaf3qu6biw" path="res://Textures/PlayerShip/playerEngine5.png" id="12_7m4qo"]
+[ext_resource type="AudioStream" uid="uid://df4gl5em07l36" path="res://SFX/414885__matrixxx__retro-laser-shot-03.wav" id="13_81xa1"]
+[ext_resource type="AudioStream" uid="uid://bfwpptemirs2q" path="res://SFX/459145__matrixxx__retro-pew-shot.wav" id="14_w02do"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_274yv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_y0r6x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4ccep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_s8ydf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ncndu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_npdlm")
+}],
+"loop": true,
+"name": &"Straight",
+"speed": 7.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5r386"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_iv05k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ampd0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_uoojh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_it8ex")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_7m4qo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ba1x"]
+size = Vector2(65, 49)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_m7ajm"]
+streams_count = 2
+playback_mode = 1
+stream_0/stream = ExtResource("13_81xa1")
+stream_0/weight = 2.0
+stream_1/stream = ExtResource("14_w02do")
+stream_1/weight = 1.0
+
+[node name="Player" type="Area2D"]
+position = Vector2(223, 515)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_du5n8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 6.5)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_274yv")
+animation = &"Straight"
+frame_progress = 0.974107
+
+[node name="FiringPositions" type="Node2D" parent="."]
+
+[node name="LeftGun" type="Node2D" parent="FiringPositions"]
+position = Vector2(0, -36)
+
+[node name="FireDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="InvincibilityShield" type="Sprite2D" parent="."]
+position = Vector2(0, 8.66666)
+scale = Vector2(7, 7)
+texture = ExtResource("3_ujgnx")
+
+[node name="RapidFireTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="EnginesSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 6.5)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_5r386")
+frame_progress = 0.857634
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 6.5)
+shape = SubResource("RectangleShape2D_8ba1x")
+
+[node name="ShootSFX" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_m7ajm")
+
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="RapidFireTimer" to="." method="_on_rapid_fire_timer_timeout"]

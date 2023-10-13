@@ -1,0 +1,37 @@
+[gd_scene load_steps=10 format=3 uid="uid://pey86qppukvb"]
+
+[ext_resource type="AudioStream" uid="uid://q2e4yubfpjok" path="res://Music/DavidKBD - InterstellarPack - 01 - Interstellar.ogg" id="1_vkfqu"]
+[ext_resource type="AudioStream" uid="uid://ivqt68mprd3u" path="res://Music/DavidKBD - InterstellarPack - 02 - Plasma Storm.ogg" id="2_srphy"]
+[ext_resource type="AudioStream" uid="uid://dnr1jl6xg681s" path="res://Music/DavidKBD - InterstellarPack - 03 - Temple of Madness.ogg" id="3_cupvg"]
+[ext_resource type="AudioStream" uid="uid://blldmas6b5dnk" path="res://Music/DavidKBD - InterstellarPack - 04 - Horsehead Nebula.ogg" id="4_7utyd"]
+[ext_resource type="AudioStream" uid="uid://co4y6k43u20yq" path="res://Music/DavidKBD - InterstellarPack - 08 - Synth Kobra.ogg" id="5_w0ots"]
+[ext_resource type="AudioStream" uid="uid://cmsh8m0sln6wr" path="res://Music/DavidKBD - InterstellarPack - 07 - Electric Firework.ogg" id="6_6w4a1"]
+[ext_resource type="AudioStream" uid="uid://1g284lyv0at" path="res://Music/DavidKBD - InterstellarPack - 06 - Hope on the Horizon.ogg" id="7_1ghu4"]
+[ext_resource type="Script" path="res://MainScenes/bg_music.gd" id="8_mj6w4"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kj6nd"]
+streams_count = 7
+stream_0/stream = ExtResource("1_vkfqu")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_srphy")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_cupvg")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("4_7utyd")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("5_w0ots")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("6_6w4a1")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("7_1ghu4")
+stream_6/weight = 1.0
+
+[node name="BgMusic" type="AudioStreamPlayer2D"]
+process_mode = 3
+stream = SubResource("AudioStreamRandomizer_kj6nd")
+volume_db = -10.0
+autoplay = true
+bus = &"BgMusic"
+script = ExtResource("8_mj6w4")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

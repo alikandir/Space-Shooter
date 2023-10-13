@@ -1,0 +1,109 @@
+[gd_scene load_steps=20 format=3 uid="uid://14aru8ufsi2w"]
+
+[ext_resource type="Script" path="res://Powerups/extra_life_power_up.gd" id="1_m6lwg"]
+[ext_resource type="Texture2D" uid="uid://mvp7bhgf0cas" path="res://Textures/ExtraLife/ExtraLife1.png" id="2_d1vj8"]
+[ext_resource type="Texture2D" uid="uid://b62scs7skcsm0" path="res://Textures/ExtraLife/ExtraLife2.png" id="3_edehg"]
+[ext_resource type="Texture2D" uid="uid://blmarnpua41t7" path="res://Textures/ExtraLife/ExtraLife3.png" id="4_tgfj6"]
+[ext_resource type="Texture2D" uid="uid://c44sdgcirndug" path="res://Textures/ExtraLife/ExtraLife4.png" id="5_n5txo"]
+[ext_resource type="Texture2D" uid="uid://bywpd87yh85u8" path="res://Textures/ExtraLife/ExtraLife5.png" id="6_rdlcc"]
+[ext_resource type="Texture2D" uid="uid://cjhc5vceyiijp" path="res://Textures/ExtraLife/ExtraLife6.png" id="7_i2ac7"]
+[ext_resource type="Texture2D" uid="uid://wgjbnc2bwun8" path="res://Textures/ExtraLife/ExtraLife7.png" id="8_i1otd"]
+[ext_resource type="Texture2D" uid="uid://cjgpcs4btf354" path="res://Textures/ExtraLife/ExtraLife8.png" id="9_vlyir"]
+[ext_resource type="Texture2D" uid="uid://d34fq54c7efik" path="res://Textures/ExtraLife/ExtraLife9.png" id="10_j3vo4"]
+[ext_resource type="Texture2D" uid="uid://q42hqjkm2nvt" path="res://Textures/ExtraLife/ExtraLife10.png" id="11_rvogm"]
+[ext_resource type="Texture2D" uid="uid://deixs1k2jho8j" path="res://Textures/ExtraLife/ExtraLife11.png" id="12_g4b2e"]
+[ext_resource type="Texture2D" uid="uid://drrmpxgu6qy8g" path="res://Textures/ExtraLife/ExtraLife12.png" id="13_oehkf"]
+[ext_resource type="Texture2D" uid="uid://cco68t5ov727m" path="res://Textures/ExtraLife/ExtraLife13.png" id="14_tlrfr"]
+[ext_resource type="Texture2D" uid="uid://cq5jlsi15ja0d" path="res://Textures/ExtraLife/ExtraLife14.png" id="15_t4d1j"]
+[ext_resource type="Texture2D" uid="uid://8utm20wnb50v" path="res://Textures/ExtraLife/ExtraLife15.png" id="16_dr1ah"]
+[ext_resource type="Texture2D" uid="uid://dvv26uiwp148t" path="res://Textures/PowerUpGlow.png" id="17_w8baa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vfvi4"]
+radius = 50.1597
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_anv6y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_d1vj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_edehg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tgfj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_n5txo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_rdlcc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_i2ac7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_i1otd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vlyir")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_j3vo4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_rvogm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_g4b2e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_oehkf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_tlrfr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_t4d1j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_dr1ah")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="ExtraLife" type="Area2D"]
+scale = Vector2(0.9, 0.9)
+script = ExtResource("1_m6lwg")
+powerupMoveSpeed = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vfvi4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0.555553, -0.555557)
+scale = Vector2(5.27778, 5.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_anv6y")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 12
+lifetime = 0.5
+texture = ExtResource("17_w8baa")
+emission_shape = 2
+emission_sphere_radius = 46.18
+direction = Vector2(0, 0)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angle_min = 30.0
+angle_max = 150.0
+scale_amount_max = 1.5
+color = Color(0.258824, 0.592157, 0.215686, 0.858824)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited" flags=18]

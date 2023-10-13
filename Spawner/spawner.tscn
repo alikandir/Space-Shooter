@@ -12,5 +12,9 @@ one_shot = true
 [node name="PowerupTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="EasySpawnTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="PowerupTimer" to="." method="_on_powerup_timer_timeout"]
+[connection signal="timeout" from="EasySpawnTimer" to="." method="_on_easy_spawn_timer_timeout"]

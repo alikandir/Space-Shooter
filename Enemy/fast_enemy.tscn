@@ -7,7 +7,6 @@
 script = ExtResource("2_abbam")
 rotationRate = 100.0
 verticalSpeed = 100.0
-health = 10
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2(-1, 0)

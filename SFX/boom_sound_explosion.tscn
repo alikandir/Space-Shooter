@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://pud0g2tll7vv"]
+
+[ext_resource type="AudioStream" uid="uid://cl31idxsn48sd" path="res://SFX/explosion_wide_01.wav" id="1_7ixqe"]
+
+[sub_resource type="GDScript" id="GDScript_r044l"]
+script/source = "extends AudioStreamPlayer2D
+
+
+
+
+func _on_finished():
+	queue_free()
+"
+
+[node name="BoomSound" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_7ixqe")
+volume_db = -5.0
+autoplay = true
+bus = &"Sfx"
+script = SubResource("GDScript_r044l")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

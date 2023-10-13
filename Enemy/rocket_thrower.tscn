@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0y0rb1mu70cc"]
+[gd_scene load_steps=17 format=3 uid="uid://c0y0rb1mu70cc"]
 
 [ext_resource type="Script" path="res://Enemy/rocket_thrower.gd" id="1_d074b"]
 [ext_resource type="Texture2D" uid="uid://x4yqdb35guuh" path="res://Textures/RocketLauncher/RocketLauncher1.png" id="2_mmqyt"]
 [ext_resource type="Texture2D" uid="uid://du5fi7vb51thh" path="res://Textures/Rocket/ParticleEffect.png" id="2_vmtwv"]
+[ext_resource type="Shader" uid="uid://b1g6ju0gh6n1g" path="res://Shaders/hitFlash.tres" id="3_7yst3"]
 [ext_resource type="Texture2D" uid="uid://ciwuv00lxets6" path="res://Textures/RocketLauncher/RocketLauncher2.png" id="3_hw8g3"]
 [ext_resource type="Texture2D" uid="uid://c4qhk27ff0tx7" path="res://Textures/RocketLauncher/RocketLauncher3.png" id="4_h18sl"]
 [ext_resource type="Texture2D" uid="uid://b1isdssrwoyq" path="res://Textures/RocketLauncher/RocketLauncher4.png" id="5_ivc36"]
@@ -13,6 +14,12 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ghhoy"]
 radius = 33.0
 height = 98.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iglse"]
+resource_local_to_scene = true
+shader = ExtResource("3_7yst3")
+shader_parameter/hit = false
+shader_parameter/Tint = Color(1, 1, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mll8p"]
 animations = [{
@@ -43,7 +50,45 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Animation" id="Animation_uubge"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_nlt0g"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x6o45"]
+_data = {
+"RESET": SubResource("Animation_nlt0g"),
+"hit_flash": SubResource("Animation_uubge")
+}
+
 [node name="RocketThrower" type="Area2D" groups=["damageable"]]
+scale = Vector2(1.75, 1.75)
 script = ExtResource("1_d074b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -86,9 +131,15 @@ angular_velocity_min = -20.0
 angular_velocity_max = 20.0
 scale_amount_min = 0.3
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="ShipSprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_iglse")
 sprite_frames = SubResource("SpriteFrames_mll8p")
 frame_progress = 0.744924
+
+[node name="HitFlashAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x6o45")
+}
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]

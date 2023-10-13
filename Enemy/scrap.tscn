@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bjuoktc7jkybx"]
+[gd_scene load_steps=20 format=3 uid="uid://bjuoktc7jkybx"]
 
 [ext_resource type="Script" path="res://Enemy/Scrap.gd" id="1_xe6fv"]
 [ext_resource type="Texture2D" uid="uid://cf2th4owlfndk" path="res://Textures/Scrap/scrap1.png" id="2_7vgb1"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://88il4eaaj1ow" path="res://Textures/Scrap/scrapShield5.png" id="13_xslei"]
 [ext_resource type="Texture2D" uid="uid://crxosbxys5xko" path="res://Textures/Scrap/scrapShield6.png" id="14_hp0s1"]
 [ext_resource type="Texture2D" uid="uid://hpfef6ayfn28" path="res://Textures/Scrap/scrapShield7.png" id="15_40ayi"]
+[ext_resource type="Texture2D" uid="uid://dvv26uiwp148t" path="res://Textures/PowerUpGlow.png" id="16_yj6nt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_byc5r"]
 radius = 15.0
@@ -79,9 +80,9 @@ animations = [{
 
 [node name="Scrap" type="Area2D"]
 position = Vector2(159, 133)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(2, 2)
 script = ExtResource("1_xe6fv")
-moveSpeed = 150.0
+moveSpeed = 180.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_byc5r")
@@ -93,4 +94,25 @@ sprite_frames = SubResource("SpriteFrames_vpr4m")
 sprite_frames = SubResource("SpriteFrames_k3inu")
 frame_progress = 0.783913
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0.33333, 0.33333)
+scale = Vector2(1.56667, 1.43333)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 12
+lifetime = 0.2
+texture = ExtResource("16_yj6nt")
+emission_shape = 2
+emission_sphere_radius = 16.02
+direction = Vector2(0, 0)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angle_min = 30.0
+angle_max = 150.0
+scale_amount_max = 1.5
+color = Color(0.466667, 0.713726, 0.835294, 0.811765)
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

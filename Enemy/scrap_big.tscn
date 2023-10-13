@@ -4,6 +4,5 @@
 [ext_resource type="Script" path="res://Enemy/scrap_big.gd" id="2_0cbgx"]
 
 [node name="ScrapBig" instance=ExtResource("1_j8n88")]
-scale = Vector2(1.8, 1.8)
+scale = Vector2(2.5, 2.5)
 script = ExtResource("2_0cbgx")
-moveSpeed = 150.0

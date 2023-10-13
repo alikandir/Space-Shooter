@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2bikc6po8vwo"]
+[gd_scene load_steps=7 format=3 uid="uid://c2bikc6po8vwo"]
 
 [ext_resource type="PackedScene" uid="uid://xxo1tuhxv1yd" path="res://Player/player.tscn" id="2_uyt1r"]
+[ext_resource type="Theme" uid="uid://ggybb3lf484f" path="res://theme.tres" id="2_valc7"]
 [ext_resource type="PackedScene" uid="uid://p2darqt5xupj" path="res://Spawner/spawner.tscn" id="5_dm4ut"]
 [ext_resource type="PackedScene" uid="uid://b6fss8qm3yfnq" path="res://MainScenes/parallax_background.tscn" id="5_jr8aw"]
 [ext_resource type="PackedScene" uid="uid://cmwyw8abdrs3t" path="res://Hud/hud.tscn" id="5_mt0yy"]
@@ -13,6 +14,18 @@
 [node name="HUD" parent="HUD_CANVAS" instance=ExtResource("5_mt0yy")]
 z_index = 101
 offset_bottom = 171.0
+
+[node name="Settings" type="Button" parent="HUD_CANVAS"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -18.0
+offset_top = 6.0
+offset_right = 62.0
+offset_bottom = 86.0
+grow_horizontal = 2
+theme = ExtResource("2_valc7")
+text = "Pause"
 
 [node name="Player" parent="." instance=ExtResource("2_uyt1r")]
 z_index = 100
@@ -27,3 +40,5 @@ script = ExtResource("6_e6rau")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("5_jr8aw")]
 scrollSpeed = 200
+
+[connection signal="pressed" from="HUD_CANVAS/Settings" to="HUD_CANVAS/HUD" method="_on_settings_pressed"]

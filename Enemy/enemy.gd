@@ -6,7 +6,8 @@ class_name Enemy
 @onready var plScrap:=preload("res://Enemy/scrap_big.tscn")
 @onready var plScrapSmall:=preload("res://Enemy/scrap.tscn")
 @export var verticalSpeed:float=10
-@export var health:int=5
+
+var health:float
 var playerInArea:Player=null
 var canShoot:bool=false
 
@@ -29,7 +30,7 @@ func Shoot():
 			bullet.rotation=rotation
 			get_tree().current_scene.add_child(bullet)
 
-func damage(amount:int):
+func damage(amount:float):
 	if health<=0:
 		return
 	health-=amount

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://2y7vj0r6y6nf"]
+[gd_scene load_steps=27 format=3 uid="uid://2y7vj0r6y6nf"]
 
 [ext_resource type="Script" path="res://Enemy/bouncer_enemy_cross_moving.gd" id="2_ght56"]
 [ext_resource type="Texture2D" uid="uid://bw6v1p7yvmrcu" path="res://Textures/BasicShooterEnemy/BasicShooterGun9.png" id="2_tilbh"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bkm3eigueyd7t" path="res://Textures/BasicShooterEnemy/BasicShooterGun5.png" id="7_7t5ov"]
 [ext_resource type="Texture2D" uid="uid://dqq6rfarn2euc" path="res://Textures/BasicShooterEnemy/BasicShooterGun6.png" id="8_y87he"]
 [ext_resource type="Texture2D" uid="uid://b35hea3nunr8s" path="res://Textures/BasicShooterCross/BasicShooterCross1.png" id="9_j3i4y"]
+[ext_resource type="Shader" uid="uid://b1g6ju0gh6n1g" path="res://Shaders/hitFlash.tres" id="9_uwnsu"]
 [ext_resource type="Texture2D" uid="uid://pxjscfaal335" path="res://Textures/BasicShooterCross/BasicShooterCross2.png" id="10_78bmn"]
 [ext_resource type="Texture2D" uid="uid://jn6cgxkfb8jm" path="res://Textures/BasicShooterCross/BasicShooterCross3.png" id="11_ifd2q"]
 [ext_resource type="Texture2D" uid="uid://n4wcfop7xqjj" path="res://Textures/BasicShooterCross/BasicShooterCross4.png" id="12_mtxck"]
@@ -56,6 +57,12 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1jc73"]
+resource_local_to_scene = true
+shader = ExtResource("9_uwnsu")
+shader_parameter/hit = false
+shader_parameter/Tint = Color(1, 1, 1, 1)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_or3ra"]
 animations = [{
 "frames": [{
@@ -91,13 +98,50 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_uubge"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_nlt0g"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x6o45"]
+_data = {
+"RESET": SubResource("Animation_nlt0g"),
+"hit_flash": SubResource("Animation_uubge")
+}
+
 [node name="CrossMovingBouncerEnemy" type="Area2D" groups=["damageable"]]
-position = Vector2(1, 0)
-scale = Vector2(1.25, 1.25)
+position = Vector2(247, 136)
+scale = Vector2(1.5, 1.5)
 script = ExtResource("2_ght56")
-horizontalSpeed = 200
-fireRate = 1.0
-verticalSpeed = 50.0
+horizontalSpeed = 160
+fireRate = 2.8
+verticalSpeed = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -7)
@@ -127,6 +171,7 @@ animation = &"shooting"
 offset = Vector2(0, -15)
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_1jc73")
 position = Vector2(-2.4, -2.4)
 sprite_frames = SubResource("SpriteFrames_or3ra")
 frame = 2
@@ -134,7 +179,6 @@ frame_progress = 0.0277765
 
 [node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
 position = Vector2(-27.2, -25.6)
-scale = Vector2(1, 1)
 amount = 12
 texture = ExtResource("18_4pmxr")
 direction = Vector2(0, -1)
@@ -158,6 +202,11 @@ angular_velocity_min = -16.55
 angular_velocity_max = 15.0
 scale_amount_min = 0.0
 scale_amount_max = 1.5
+
+[node name="HitFlashAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x6o45")
+}
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
 [connection signal="area_exited" from="." to="." method="_on_area_exited" flags=18]

@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfv3h47osyg5s"]
+[gd_scene load_steps=5 format=3 uid="uid://bfv3h47osyg5s"]
 
-[ext_resource type="Texture2D" uid="uid://c4p1mxd4e3621" path="res://Textures/enemyUFO.png" id="1_74gld"]
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_tp1av"]
+[ext_resource type="Shader" uid="uid://b1g6ju0gh6n1g" path="res://Shaders/hitFlash.tres" id="2_1krjw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kipeb"]
 radius = 34.0588
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hoetl"]
+shader = ExtResource("2_1krjw")
+shader_parameter/hit = true
+shader_parameter/Tint = Color(1, 1, 1, 1)
 
 [node name="Enemy" type="Area2D" groups=["damageable"]]
 position = Vector2(1, 0)
@@ -15,8 +20,8 @@ position = Vector2(-1, 1)
 shape = SubResource("CircleShape2D_kipeb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_hoetl")
 position = Vector2(-1, 0)
-texture = ExtResource("1_74gld")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0.500002, 1.5)

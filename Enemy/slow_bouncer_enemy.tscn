@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cr0wds5jofna2"]
+[gd_scene load_steps=28 format=3 uid="uid://cr0wds5jofna2"]
 
 [ext_resource type="Script" path="res://Enemy/bouncerEnemy.gd" id="1_pt7oy"]
 [ext_resource type="Texture2D" uid="uid://bw6v1p7yvmrcu" path="res://Textures/BasicShooterEnemy/BasicShooterGun9.png" id="2_he50b"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b05r5fd2qyuos" path="res://Textures/BasicShooterEnemy/BasicShooterGun4.png" id="6_3bsef"]
 [ext_resource type="Texture2D" uid="uid://bkm3eigueyd7t" path="res://Textures/BasicShooterEnemy/BasicShooterGun5.png" id="7_whi67"]
 [ext_resource type="Texture2D" uid="uid://dqq6rfarn2euc" path="res://Textures/BasicShooterEnemy/BasicShooterGun6.png" id="8_15q41"]
+[ext_resource type="Shader" uid="uid://b1g6ju0gh6n1g" path="res://Shaders/hitFlash.tres" id="9_5fiee"]
 [ext_resource type="Texture2D" uid="uid://cod13rhxwijd5" path="res://Textures/BasicShooterEnemy/BasicShooter1.png" id="9_l2wou"]
 [ext_resource type="Texture2D" uid="uid://dko4sx7knolsd" path="res://Textures/BasicShooterEnemy/BasicShooter2.png" id="10_3oe46"]
 [ext_resource type="Texture2D" uid="uid://bk1bi7t3wbopi" path="res://Textures/BasicShooterEnemy/BasicShooter3.png" id="11_oxb65"]
@@ -18,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://by1vv4xicbf10" path="res://Textures/BasicShooterEnemy/BasicShooter8.png" id="16_0ojyl"]
 [ext_resource type="Texture2D" uid="uid://daxq2pihswcjh" path="res://Textures/BasicShooterEnemy/BasicShooter9.png" id="17_wgmmq"]
 [ext_resource type="Texture2D" uid="uid://du5fi7vb51thh" path="res://Textures/Rocket/ParticleEffect.png" id="18_jqapd"]
+[ext_resource type="AudioStream" uid="uid://dkd8tusoe1yfn" path="res://SFX/hitSound.wav" id="20_rchnf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chmcl"]
 size = Vector2(80, 34)
@@ -56,6 +58,12 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yfjrf"]
+resource_local_to_scene = true
+shader = ExtResource("9_5fiee")
+shader_parameter/hit = false
+shader_parameter/Tint = Color(1, 1, 1, 1)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_c82kp"]
 animations = [{
 "frames": [{
@@ -91,14 +99,50 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_uubge"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_nlt0g"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x6o45"]
+_data = {
+"RESET": SubResource("Animation_nlt0g"),
+"hit_flash": SubResource("Animation_uubge")
+}
+
 [node name="SlowBouncerEnemy" type="Area2D" groups=["damageable"]]
 position = Vector2(1, 0)
-scale = Vector2(1.25, 1.25)
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_pt7oy")
 horizontalSpeed = 80
 fireRate = 2.5
 verticalSpeed = 200.0
-health = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -7)
@@ -129,6 +173,7 @@ offset = Vector2(0, -15)
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="."]
 z_index = -1
+material = SubResource("ShaderMaterial_yfjrf")
 position = Vector2(-2, -2)
 sprite_frames = SubResource("SpriteFrames_c82kp")
 frame = 8
@@ -159,6 +204,14 @@ angular_velocity_min = -16.55
 angular_velocity_max = 15.0
 scale_amount_min = 0.0
 scale_amount_max = 1.5
+
+[node name="HitFlashAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x6o45")
+}
+
+[node name="HitSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("20_rchnf")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
 [connection signal="area_exited" from="." to="." method="_on_area_exited" flags=18]

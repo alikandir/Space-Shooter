@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://xxo1tuhxv1yd"]
+[gd_scene load_steps=32 format=3 uid="uid://xxo1tuhxv1yd"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_du5n8"]
+[ext_resource type="Shader" uid="uid://b1g6ju0gh6n1g" path="res://Shaders/hitFlash.tres" id="2_fe5gp"]
 [ext_resource type="Texture2D" uid="uid://dc12oacnxeec8" path="res://Textures/PlayerShip/player1.png" id="2_y0r6x"]
 [ext_resource type="Texture2D" uid="uid://dqmkuopxv53oh" path="res://Textures/PlayerShip/player2.png" id="3_4ccep"]
 [ext_resource type="Texture2D" uid="uid://bgkmv772bnl3b" path="res://Textures/shield.png" id="3_ujgnx"]
@@ -12,7 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://brnh2c7sd88id" path="res://Textures/PlayerShip/playerEngine3.png" id="10_uoojh"]
 [ext_resource type="Texture2D" uid="uid://bw5jrdnk7pvmh" path="res://Textures/PlayerShip/playerEngine4.png" id="11_it8ex"]
 [ext_resource type="Texture2D" uid="uid://bufgaf3qu6biw" path="res://Textures/PlayerShip/playerEngine5.png" id="12_7m4qo"]
-[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="13_56dic"]
+[ext_resource type="AudioStream" uid="uid://df4gl5em07l36" path="res://SFX/414885__matrixxx__retro-laser-shot-03.wav" id="13_81xa1"]
+[ext_resource type="AudioStream" uid="uid://dvfy72repu0ob" path="res://SFX/explosion_big_03.wav" id="15_c1etw"]
+[ext_resource type="AudioStream" uid="uid://b36lerecxb4yi" path="res://SFX/hit_SFX_free/hit_004.wav" id="16_nrcmx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eu5oe"]
+shader = ExtResource("2_fe5gp")
+shader_parameter/hit = false
+shader_parameter/Tint = Color(1, 1, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_274yv"]
 animations = [{
@@ -36,6 +44,118 @@ animations = [{
 "name": &"Straight",
 "speed": 7.0
 }]
+
+[sub_resource type="Animation" id="Animation_e4yom"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_jim3p"]
+resource_name = "move_left"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.10472]
+}
+
+[sub_resource type="Animation" id="Animation_flfqw"]
+resource_name = "move_right"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.10472]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rjyk0"]
+_data = {
+"RESET": SubResource("Animation_e4yom"),
+"move_left": SubResource("Animation_jim3p"),
+"move_right": SubResource("Animation_flfqw")
+}
+
+[sub_resource type="Animation" id="Animation_sl7p1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ioar5"]
+resource_name = "invincibility_flash"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.784314, 1, 1, 0.784314), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.392157), Color(1, 1, 1, 0.588235), Color(0.784314, 1, 1, 0.784314)]
+}
+
+[sub_resource type="Animation" id="Animation_ntlxq"]
+resource_name = "invincibility_flash_normal"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.392157, 1, 1, 0.705882), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rpyft"]
+_data = {
+"RESET": SubResource("Animation_sl7p1"),
+"invincibility_flash": SubResource("Animation_ioar5"),
+"invincibility_flash_normal": SubResource("Animation_ntlxq")
+}
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5r386"]
 animations = [{
@@ -63,25 +183,65 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ba1x"]
 size = Vector2(65, 49)
 
+[sub_resource type="Animation" id="Animation_u74dd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_vd470"]
+resource_name = "hit_animation"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kjudv"]
+_data = {
+"RESET": SubResource("Animation_u74dd"),
+"hit_animation": SubResource("Animation_vd470")
+}
+
 [node name="Player" type="Area2D"]
 position = Vector2(223, 515)
-scale = Vector2(1.25, 1.25)
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_du5n8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_eu5oe")
 position = Vector2(0, 6.5)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_274yv")
 animation = &"Straight"
 frame_progress = 0.974107
 
+[node name="MoveAnimation" type="AnimationPlayer" parent="AnimatedSprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_rjyk0")
+}
+
 [node name="FiringPositions" type="Node2D" parent="."]
 
 [node name="LeftGun" type="Node2D" parent="FiringPositions"]
-position = Vector2(-35, -10)
-
-[node name="RightGun" type="Node2D" parent="FiringPositions"]
-position = Vector2(33, -10)
+position = Vector2(0, -36)
 
 [node name="FireDelayTimer" type="Timer" parent="."]
 one_shot = true
@@ -90,8 +250,14 @@ one_shot = true
 one_shot = true
 
 [node name="InvincibilityShield" type="Sprite2D" parent="."]
-scale = Vector2(0.75, 0.75)
+position = Vector2(0, 8.66666)
+scale = Vector2(7, 7)
 texture = ExtResource("3_ujgnx")
+
+[node name="InvincibilityShieldEnding" type="AnimationPlayer" parent="InvincibilityShield"]
+libraries = {
+"": SubResource("AnimationLibrary_rpyft")
+}
 
 [node name="RapidFireTimer" type="Timer" parent="."]
 one_shot = true
@@ -106,15 +272,23 @@ frame_progress = 0.857634
 position = Vector2(0.5, 6.5)
 shape = SubResource("RectangleShape2D_8ba1x")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="ShootSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_81xa1")
+volume_db = -10.0
+bus = &"Sfx"
 
-[node name="Virtual Joystick" parent="CanvasLayer" instance=ExtResource("13_56dic")]
-modulate = Color(1, 1, 1, 0.356863)
-offset_left = 45.0
-offset_top = -190.0
-offset_right = 345.0
-offset_bottom = 110.0
-scale = Vector2(0.5, 0.5)
+[node name="HitAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kjudv")
+}
+
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_c1etw")
+bus = &"Sfx"
+
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_nrcmx")
+bus = &"Sfx"
 
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="RapidFireTimer" to="." method="_on_rapid_fire_timer_timeout"]

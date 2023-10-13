@@ -1,0 +1,147 @@
+[gd_scene load_steps=18 format=3 uid="uid://bryl3cj4pi5su"]
+
+[ext_resource type="Script" path="res://MainScenes/start_menu.gd" id="1_jwkqh"]
+[ext_resource type="PackedScene" uid="uid://b6fss8qm3yfnq" path="res://MainScenes/parallax_background.tscn" id="2_7hd6k"]
+[ext_resource type="Shader" uid="uid://b1g6ju0gh6n1g" path="res://Shaders/hitFlash.tres" id="3_5xtye"]
+[ext_resource type="Theme" uid="uid://ggybb3lf484f" path="res://theme.tres" id="3_6e2r6"]
+[ext_resource type="Texture2D" uid="uid://dc12oacnxeec8" path="res://Textures/PlayerShip/player1.png" id="4_kbhw7"]
+[ext_resource type="Texture2D" uid="uid://dqmkuopxv53oh" path="res://Textures/PlayerShip/player2.png" id="5_0d5no"]
+[ext_resource type="Texture2D" uid="uid://uwm0ojgki3ew" path="res://Textures/PlayerShip/player3.png" id="6_urojm"]
+[ext_resource type="Texture2D" uid="uid://cvri64lnv1xc2" path="res://Textures/PlayerShip/player4.png" id="7_4sle3"]
+[ext_resource type="Texture2D" uid="uid://jpc48c4t7t8n" path="res://Textures/PlayerShip/player5.png" id="8_4ue5m"]
+[ext_resource type="Texture2D" uid="uid://bhe4q5jpvovta" path="res://Textures/PlayerShip/playerEngine1.png" id="9_3t3tk"]
+[ext_resource type="Texture2D" uid="uid://bxk5d2hr31ytt" path="res://Textures/PlayerShip/playerEngine2.png" id="10_tkk0i"]
+[ext_resource type="Texture2D" uid="uid://brnh2c7sd88id" path="res://Textures/PlayerShip/playerEngine3.png" id="11_ehqd7"]
+[ext_resource type="Texture2D" uid="uid://bw5jrdnk7pvmh" path="res://Textures/PlayerShip/playerEngine4.png" id="12_lkp6c"]
+[ext_resource type="Texture2D" uid="uid://bufgaf3qu6biw" path="res://Textures/PlayerShip/playerEngine5.png" id="13_b64pu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k5f5s"]
+shader = ExtResource("3_5xtye")
+shader_parameter/hit = false
+shader_parameter/Tint = Color(1, 1, 1, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qm8v6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_kbhw7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0d5no")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_urojm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_4sle3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_4ue5m")
+}],
+"loop": true,
+"name": &"Straight",
+"speed": 7.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x82ao"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_3t3tk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tkk0i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ehqd7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_lkp6c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_b64pu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_jwkqh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ParallaxBackground" parent="CanvasLayer" instance=ExtResource("2_7hd6k")]
+scrollSpeed = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 76.0
+offset_right = 100.0
+offset_bottom = 376.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="StartButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_6e2r6")
+text = "Start"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_6e2r6")
+text = "Quit"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 50.0
+offset_right = 200.0
+offset_bottom = 130.0
+grow_horizontal = 2
+theme_override_constants/separation = 50
+
+[node name="SettingsButton" type="Button" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("3_6e2r6")
+text = "Settings"
+
+[node name="CreditsButton" type="Button" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("3_6e2r6")
+text = "Credits"
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_k5f5s")
+position = Vector2(403, 841)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_qm8v6")
+animation = &"Straight"
+
+[node name="EnginesSprite" type="AnimatedSprite2D" parent="CanvasLayer"]
+position = Vector2(403, 841)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_x82ao")
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]

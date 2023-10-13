@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://ce2k53131dday"]
+[gd_scene load_steps=15 format=3 uid="uid://ce2k53131dday"]
 
 [ext_resource type="Script" path="res://Enemy/EnemyTargetingShooter.gd" id="2_q8l4e"]
+[ext_resource type="Shader" uid="uid://b1g6ju0gh6n1g" path="res://Shaders/hitFlash.tres" id="2_saw1r"]
 [ext_resource type="Texture2D" uid="uid://c7x3toygivwnt" path="res://Textures/TargetingEnemy/TargetinEnemy.png" id="2_wy5jc"]
 [ext_resource type="Texture2D" uid="uid://b5viv1kjco8vc" path="res://Textures/TargetingEnemy/TargetinEnemyGun1.png" id="3_md50v"]
 [ext_resource type="Texture2D" uid="uid://d141dmgsi78bb" path="res://Textures/TargetingEnemy/TargetinEnemyGun2.png" id="4_xb5ka"]
@@ -10,6 +11,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chmcl"]
 size = Vector2(36, 80)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d13ll"]
+resource_local_to_scene = true
+shader = ExtResource("2_saw1r")
+shader_parameter/hit = false
+shader_parameter/Tint = Color(1, 1, 1, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wgroi"]
 animations = [{
@@ -42,10 +49,47 @@ animations = [{
 "speed": 20.0
 }]
 
+[sub_resource type="Animation" id="Animation_uubge"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_nlt0g"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x6o45"]
+_data = {
+"RESET": SubResource("Animation_nlt0g"),
+"hit_flash": SubResource("Animation_uubge")
+}
+
 [node name="EnemyTargetingShooter" type="Area2D" groups=["damageable"]]
 position = Vector2(1, 0)
 rotation = 1.5708
-scale = Vector2(1.25, 1.25)
+scale = Vector2(1.5, 1.5)
 script = ExtResource("2_q8l4e")
 verticalSpeed = 50.0
 
@@ -53,7 +97,8 @@ verticalSpeed = 50.0
 position = Vector2(-3.99986, -1.00005)
 shape = SubResource("RectangleShape2D_chmcl")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="ShipSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_d13ll")
 rotation = -1.5708
 texture = ExtResource("2_wy5jc")
 
@@ -73,6 +118,11 @@ offset = Vector2(0, -10)
 
 [node name="FireTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="HitFlashAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x6o45")
+}
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
 [connection signal="area_exited" from="." to="." method="_on_area_exited" flags=18]

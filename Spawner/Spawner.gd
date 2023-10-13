@@ -3,6 +3,7 @@ extends Node2D
 
 @onready var spawnTimer=$SpawnTimer
 @onready var powerupSpawnTimer=$PowerupTimer
+@onready var easySpawnTimer=$EasySpawnTimer
 
 var preloadedEnemies:=[
 	preload("res://Enemy/slow_bouncer_enemy.tscn"),
@@ -14,58 +15,99 @@ var preloadedEnemies:=[
 	preload("res://Enemy/rocket_thrower.tscn")
 ]
 
+var preloadedEasyEnemies:=[
+	preload("res://Enemy/buzzsaw_enemy_easy.tscn"),
+	preload("res://Enemy/cross_moving_bouncer_enemy_easy.tscn")
+	
+]
+
 var preloadedPowerups:=[
 	preload("res://Powerups/shield_power_up.tscn"),
 	preload("res://Powerups/rapid_fire_power_up.tscn"),
 ]
+var plExtraLife=preload("res://Powerups/extra_life_power_up.tscn")
 var plMeteor=preload("res://Meteor/Meteor.tscn")
 
-@export var nextSpawnTime:=5.0
+var firstSpawnTime:float=2.0
+var easySpawnTime:float=2.5
+var nextSpawnTime:float=6
+
+
 @export var minSpawnTime:float=2.0
 
 
 
 func _ready():
 	randomize()
+	easySpawnTimer.start(easySpawnTime)
 	spawnTimer.start(nextSpawnTime)
 	powerupSpawnTimer.start(minSpawnTime)
+	
 
 func _on_spawn_timer_timeout():
 	var minSpawnAmount:int
 	var maxSpawnAmount:int
-	if PlayerStats.playerLevel>20:
-		minSpawnAmount=5
-		maxSpawnAmount=7
-		for i in randi_range(minSpawnAmount,maxSpawnAmount):
-			Spawn()
-	elif PlayerStats.playerLevel>15:
-		minSpawnAmount=4
-		maxSpawnAmount=5
-		for i in randi_range(minSpawnAmount,maxSpawnAmount):
-			Spawn()
-	elif PlayerStats.playerLevel>10:
+	
+	if PlayerStats.playerLevel>35:
 		minSpawnAmount=3
+		maxSpawnAmount=6
+
+	elif PlayerStats.playerLevel>30:
+		minSpawnAmount=2
+		maxSpawnAmount=5
+
+		for i in randi_range(minSpawnAmount,maxSpawnAmount):
+			Spawn()
+
+	elif PlayerStats.playerLevel>25:
+		minSpawnAmount=2
+		maxSpawnAmount=4
+
+		for i in randi_range(minSpawnAmount,maxSpawnAmount):
+			Spawn()
+	if PlayerStats.playerLevel>20:
+		minSpawnAmount=1
 		maxSpawnAmount=4
 		for i in randi_range(minSpawnAmount,maxSpawnAmount):
 			Spawn()
-	elif PlayerStats.playerLevel>5:
+	elif PlayerStats.playerLevel>15:
+		minSpawnAmount=1
+		maxSpawnAmount=3
+		for i in randi_range(minSpawnAmount,maxSpawnAmount):
+			Spawn()
+	elif PlayerStats.playerLevel>10:
 		minSpawnAmount=1
 		maxSpawnAmount=2
 		for i in randi_range(minSpawnAmount,maxSpawnAmount):
 			Spawn()
-	elif PlayerStats.playerLevel>0:
-		Spawn()
+	elif PlayerStats.playerLevel>3:
+		minSpawnAmount=1
+		maxSpawnAmount=1
+		for i in randi_range(minSpawnAmount,maxSpawnAmount):
+			Spawn()
+	else:
+		pass
 	#restart the timer
-	nextSpawnTime-=0.1
+	nextSpawnTime-=0.05
+	print_debug(nextSpawnTime)
 	if nextSpawnTime<minSpawnTime:
 		nextSpawnTime=minSpawnTime
 	spawnTimer.start(nextSpawnTime)
+
+
 func _on_powerup_timer_timeout():
-	var powerupPreload= preloadedPowerups[randi()%preloadedPowerups.size()]
-	var powerup:Powerup=powerupPreload.instantiate()
-	powerup.position = getRandomSpawnPos()
-	get_tree().current_scene.add_child(powerup)
 	powerupSpawnTimer.start(randf_range(PlayerStats.minPowerupSpawnTime,PlayerStats.maxPowerupSpawnTime))
+	if randf()<0.07:
+		var extraLife=plExtraLife.instantiate()
+		extraLife.position=getRandomSpawnPos()
+		get_tree().current_scene.add_child(extraLife)
+#		powerupSpawnTimer.start(randf_range(PlayerStats.minPowerupSpawnTime,PlayerStats.maxPowerupSpawnTime))
+	else:
+		var powerupPreload= preloadedPowerups[randi()%preloadedPowerups.size()]
+		var powerup=powerupPreload.instantiate()
+		powerup.position = getRandomSpawnPos()
+		get_tree().current_scene.add_child(powerup)
+#		powerupSpawnTimer.start(randf_range(PlayerStats.minPowerupSpawnTime,PlayerStats.maxPowerupSpawnTime))
 
 func getRandomSpawnPos():
 	## spawn an enemy
@@ -85,4 +127,58 @@ func Spawn():
 		var enemy:Enemy= enemyPreload.instantiate()
 		enemy.position=getRandomSpawnPos()
 		get_tree().current_scene.add_child(enemy)
-		
+
+func SpawnEasy():
+	var enemyPreload=preloadedEasyEnemies[randi()%preloadedEasyEnemies.size()]
+	var enemy:Enemy= enemyPreload.instantiate()
+	enemy.position=getRandomSpawnPos()
+	get_tree().current_scene.add_child(enemy)
+
+
+func _on_easy_spawn_timer_timeout():
+	var minSpawnEasyAmount:int
+	var maxSpawnEasyAmount:int
+	
+	if PlayerStats.playerLevel>30:
+		minSpawnEasyAmount=1
+		maxSpawnEasyAmount=4
+		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
+			SpawnEasy()
+	elif PlayerStats.playerLevel>25:
+
+		minSpawnEasyAmount=1
+		maxSpawnEasyAmount=3
+		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
+			SpawnEasy()
+	if PlayerStats.playerLevel>20:
+		minSpawnEasyAmount=1
+		maxSpawnEasyAmount=3
+		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
+			SpawnEasy()
+	elif PlayerStats.playerLevel>15:
+		minSpawnEasyAmount=1
+		maxSpawnEasyAmount=4
+		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
+			SpawnEasy()
+	elif PlayerStats.playerLevel>10:
+		minSpawnEasyAmount=1
+		maxSpawnEasyAmount=4
+		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
+			SpawnEasy()
+	elif PlayerStats.playerLevel>5:
+		minSpawnEasyAmount=3
+		maxSpawnEasyAmount=5
+		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
+			SpawnEasy()
+	elif PlayerStats.playerLevel>3:
+		minSpawnEasyAmount=2
+		maxSpawnEasyAmount=5
+		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
+			SpawnEasy()
+	elif PlayerStats.playerLevel>0:
+		minSpawnEasyAmount=2
+		maxSpawnEasyAmount=4
+		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
+			SpawnEasy()
+			
+	easySpawnTimer.start(easySpawnTime)

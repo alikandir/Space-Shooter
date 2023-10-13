@@ -20,4 +20,7 @@ func _process(delta):
 	
 	
 func shake(magnitude:float):
-	shakeAmount+=magnitude
+	if shakeAmount<2.5:
+		shakeAmount+=magnitude
+	else:
+		shakeAmount=2.5

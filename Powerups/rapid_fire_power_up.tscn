@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bujl4p1hmgydi"]
+[gd_scene load_steps=20 format=3 uid="uid://bujl4p1hmgydi"]
 
 [ext_resource type="Texture2D" uid="uid://dti311sn46dp2" path="res://Textures/FireRateUp/FireRateUp1.png" id="2_p4rao"]
 [ext_resource type="Script" path="res://Powerups/rapid_fire_power_up.gd" id="2_tfnlt"]
@@ -16,11 +16,12 @@
 [ext_resource type="Texture2D" uid="uid://c1l3g7j3scosp" path="res://Textures/FireRateUp/FireRateUp13.png" id="14_wq44n"]
 [ext_resource type="Texture2D" uid="uid://cfldax27fcx2y" path="res://Textures/FireRateUp/FireRateUp14.png" id="15_jce3b"]
 [ext_resource type="Texture2D" uid="uid://bgmh71a5uj22d" path="res://Textures/FireRateUp/FireRateUp15.png" id="16_j4cpe"]
+[ext_resource type="Texture2D" uid="uid://dvv26uiwp148t" path="res://Textures/PowerUpGlow.png" id="17_q358f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vfvi4"]
 radius = 50.1597
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_21l5y"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_4f6i7"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -74,8 +75,9 @@ animations = [{
 }]
 
 [node name="RapidFirePowerUp" type="Area2D"]
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.9, 0.9)
 script = ExtResource("2_tfnlt")
+rapidFireTime = null
 powerupMoveSpeed = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -86,7 +88,23 @@ position = Vector2(1, -0.499995)
 scale = Vector2(5, 5.15)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_21l5y")
+sprite_frames = SubResource("SpriteFrames_4f6i7")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 12
+lifetime = 0.5
+texture = ExtResource("17_q358f")
+emission_shape = 2
+emission_sphere_radius = 46.18
+direction = Vector2(0, 0)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+angle_min = 30.0
+angle_max = 150.0
+scale_amount_max = 1.5
+color = Color(0.929412, 0.0941176, 0.156863, 0.858824)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered" flags=18]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited" flags=18]
