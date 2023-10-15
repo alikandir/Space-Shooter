@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dnjjlirssqig6"
-path="res://.godot/imported/Slider_Knob.png-65d8e92d77a993a858de00e2f6718257.ctex"
+path="res://.godot/imported/Slider_Knob.png-c42624b9b7654509f5f537f70d82c462.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Slider_Knob.png"
-dest_files=["res://.godot/imported/Slider_Knob.png-65d8e92d77a993a858de00e2f6718257.ctex"]
+source_file="res://Textures/GUI/Slider_Knob.png"
+dest_files=["res://.godot/imported/Slider_Knob.png-c42624b9b7654509f5f537f70d82c462.ctex"]
 
 [params]
 

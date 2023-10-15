@@ -98,8 +98,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_uubge"]
-resource_name = "hit_flash"
+[sub_resource type="Animation" id="Animation_nlt0g"]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -114,7 +113,8 @@ tracks/0/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="Animation" id="Animation_nlt0g"]
+[sub_resource type="Animation" id="Animation_uubge"]
+resource_name = "hit_flash"
 length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false

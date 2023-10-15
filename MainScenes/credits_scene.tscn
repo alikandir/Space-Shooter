@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccdn4xpp48smi"]
+[gd_scene load_steps=8 format=3 uid="uid://ccdn4xpp48smi"]
 
 [ext_resource type="Texture2D" uid="uid://dqc4dvkmrrwj5" path="res://Textures/SpaceBg.png" id="1_s8hni"]
+[ext_resource type="Theme" uid="uid://ggybb3lf484f" path="res://theme.tres" id="2_culjo"]
+[ext_resource type="FontFile" uid="uid://cvdqaqm4uybfn" path="res://dogicapixelbold.ttf" id="3_0jch6"]
+[ext_resource type="FontFile" uid="uid://bdgcqx2r4hwha" path="res://PixelEmulatorFont.ttf" id="4_odpb0"]
 
 [sub_resource type="GDScript" id="GDScript_l5vi0"]
 script/source = "extends Control
@@ -10,6 +13,19 @@ script/source = "extends Control
 func _on_return_button_pressed():
 	queue_free()
 "
+
+[sub_resource type="LabelSettings" id="LabelSettings_tk4ik"]
+font = ExtResource("3_0jch6")
+font_size = 30
+font_color = Color(1, 0.615686, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_21aul"]
+line_spacing = 10.0
+font = ExtResource("4_odpb0")
+font_size = 18
+font_color = Color(0.94902, 0.447059, 0.00784314, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
 
 [node name="CreditsScene" type="Control"]
 layout_mode = 3
@@ -34,12 +50,128 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -360.0
-offset_right = 50.0
-offset_bottom = -260.0
+offset_left = -82.0
+offset_top = -210.0
+offset_right = 82.0
+offset_bottom = -110.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("2_culjo")
 text = "Return"
+
+[node name="Music" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.5
+offset_top = 74.925
+offset_right = 150.5
+offset_bottom = 174.925
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+theme = ExtResource("2_culjo")
+theme_override_font_sizes/font_size = 40
+text = "Music & SFX"
+label_settings = SubResource("LabelSettings_tk4ik")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="info" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -168.5
+offset_top = 160.765
+offset_right = 168.5
+offset_bottom = 253.765
+grow_horizontal = 2
+text = "David KBD - Music
+YourPalRob - sfx
+void1 gaming - sfx
+
+"
+label_settings = SubResource("LabelSettings_21aul")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Visuals" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -149.5
+offset_top = -201.0
+offset_right = 150.5
+offset_bottom = -101.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+theme = ExtResource("2_culjo")
+theme_override_font_sizes/font_size = 40
+text = "Visuals"
+label_settings = SubResource("LabelSettings_tk4ik")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="info2" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -232.0
+offset_top = 357.225
+offset_right = 220.0
+offset_bottom = 485.225
+grow_horizontal = 2
+text = "the_l0bster - bg
+I need more space
+else:
+Cosmic Melon
+"
+label_settings = SubResource("LabelSettings_21aul")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Special Thanks" type="Label" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -460.0
+offset_right = 150.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+theme = ExtResource("2_culjo")
+theme_override_font_sizes/font_size = 40
+text = "Special Thanks"
+label_settings = SubResource("LabelSettings_tk4ik")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="info3" type="Label" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -226.0
+offset_top = -410.0
+offset_right = 226.0
+offset_bottom = -282.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "playtesting and moral support
+soulanlae / ayca cetin
+"
+label_settings = SubResource("LabelSettings_21aul")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="CanvasLayer/ReturnButton" to="." method="_on_return_button_pressed"]

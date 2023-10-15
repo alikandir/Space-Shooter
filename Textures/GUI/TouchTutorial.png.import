@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nts4fswn8qwv"
-path="res://.godot/imported/panelTexture.png-69e8095eede264fc9e4cdda5df249231.ctex"
+uid="uid://bdbeg1mniydy5"
+path="res://.godot/imported/TouchTutorial.png-01e72d734fb4d0c38758e818d9792bda.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/panelTexture.png"
-dest_files=["res://.godot/imported/panelTexture.png-69e8095eede264fc9e4cdda5df249231.ctex"]
+source_file="res://Textures/GUI/TouchTutorial.png"
+dest_files=["res://.godot/imported/TouchTutorial.png-01e72d734fb4d0c38758e818d9792bda.ctex"]
 
 [params]
 

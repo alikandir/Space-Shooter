@@ -41,9 +41,8 @@ script = ExtResource("1_sqhxk")
 
 [node name="LifeContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 7.0
 offset_top = 22.0
-offset_right = 149.0
+offset_right = 142.0
 offset_bottom = 94.0
 scale = Vector2(1.1, 1.1)
 theme_override_constants/separation = 10
@@ -77,9 +76,9 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -95.0
-offset_top = 22.0
+offset_top = 24.0
 offset_right = -12.0
-offset_bottom = 78.0
+offset_bottom = 80.0
 grow_horizontal = 0
 scale = Vector2(1.1, 1.1)
 text = "56"

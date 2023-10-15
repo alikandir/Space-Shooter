@@ -13,7 +13,7 @@ var upgradeOptionsString = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	$LevelUpLabelAnim.play("flash")
 ### pick a random upgrade
 	var choosenOptions=[]
 	

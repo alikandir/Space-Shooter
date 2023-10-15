@@ -39,13 +39,13 @@ func _on_score_increment(amount:int):
 	if PlayerStats.playerLevel<5:
 		desiredScore=pow(PlayerStats.playerLevel,1.5)*500
 	elif PlayerStats.playerLevel<10:
-		desiredScore=pow(PlayerStats.playerLevel,1.55)*500
+		desiredScore=pow(PlayerStats.playerLevel,1.52)*500
 	elif PlayerStats.playerLevel<15:
-		desiredScore=pow(PlayerStats.playerLevel,1.6)*500
+		desiredScore=pow(PlayerStats.playerLevel,1.55)*500
 	elif PlayerStats.playerLevel<25:
-		desiredScore=pow(PlayerStats.playerLevel,1.65)*500
+		desiredScore=pow(PlayerStats.playerLevel,1.6)*500
 	else:
-		desiredScore=pow(PlayerStats.playerLevel,1.7)*500
+		desiredScore=pow(PlayerStats.playerLevel,1.65)*500
 	if PlayerStats.score>=desiredScore and PlayerStats.isAlive	:
 		PlayerStats.level_up()
 		levelLabel.text="Lvl " + str(PlayerStats.playerLevel)

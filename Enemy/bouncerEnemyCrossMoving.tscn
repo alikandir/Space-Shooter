@@ -98,8 +98,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_uubge"]
-resource_name = "hit_flash"
+[sub_resource type="Animation" id="Animation_nlt0g"]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -114,7 +113,8 @@ tracks/0/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="Animation" id="Animation_nlt0g"]
+[sub_resource type="Animation" id="Animation_uubge"]
+resource_name = "hit_flash"
 length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -141,7 +141,7 @@ scale = Vector2(1.5, 1.5)
 script = ExtResource("2_ght56")
 horizontalSpeed = 160
 fireRate = 2.8
-verticalSpeed = 60.0
+verticalSpeed = 70.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -7)

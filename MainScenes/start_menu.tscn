@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bryl3cj4pi5su"]
+[gd_scene load_steps=26 format=3 uid="uid://bryl3cj4pi5su"]
 
 [ext_resource type="Script" path="res://MainScenes/start_menu.gd" id="1_jwkqh"]
 [ext_resource type="PackedScene" uid="uid://b6fss8qm3yfnq" path="res://MainScenes/parallax_background.tscn" id="2_7hd6k"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://brnh2c7sd88id" path="res://Textures/PlayerShip/playerEngine3.png" id="11_ehqd7"]
 [ext_resource type="Texture2D" uid="uid://bw5jrdnk7pvmh" path="res://Textures/PlayerShip/playerEngine4.png" id="12_lkp6c"]
 [ext_resource type="Texture2D" uid="uid://bufgaf3qu6biw" path="res://Textures/PlayerShip/playerEngine5.png" id="13_b64pu"]
+[ext_resource type="FontFile" uid="uid://cvdqaqm4uybfn" path="res://dogicapixelbold.ttf" id="15_e88sx"]
+[ext_resource type="Texture2D" uid="uid://cfcdpl0lsvs2h" path="res://Textures/HighScoreFireworks.png" id="16_2cnbo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k5f5s"]
 shader = ExtResource("3_5xtye")
@@ -65,6 +67,154 @@ animations = [{
 "name": &"default",
 "speed": 12.0
 }]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5r4nr"]
+line_spacing = 20.0
+font = ExtResource("15_e88sx")
+font_size = 60
+font_color = Color(0.929412, 0.215686, 0.227451, 1)
+outline_size = 6
+outline_color = Color(0.109804, 0.0627451, 0.34902, 1)
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_t4fth"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:label_settings:font_color:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.929412, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:label_settings:font_color:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.215686, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:label_settings:font_color:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.227451, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:label_settings:font_size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [60]
+}
+
+[sub_resource type="Animation" id="Animation_jmt1y"]
+resource_name = "title_jump"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:label_settings")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:label_settings:font_color:r")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0.929412, -0.25, 0, 0.25, 0, 0.333333, -0.25, 0, 0.25, 0, 0.215686, -0.25, 0, 0.25, 0, 0.929412, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.01, 0.5, 1, 1.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:label_settings:font_color:g")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0.215686, -0.25, 0, 0.25, 0, 0.215686, -0.25, 0, 0.25, 0, 0.929412, -0.25, 0, 0.25, 0, 0.215686, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.01, 0.5, 1, 1.5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:label_settings:font_color:b")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0.227451, -0.25, 0, 0.25, 0, 0.929412, -0.25, 0, 0.25, 0, 0.356863, -0.25, 0, 0.25, 0, 0.227451, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.01, 0.5, 1, 1.5)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:label_settings")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:label_settings:font_size")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [50, 60, 50]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wbhvh"]
+_data = {
+"RESET": SubResource("Animation_t4fth"),
+"title_jump": SubResource("Animation_jmt1y")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_phh6f"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_j32ot"]
+offsets = PackedFloat32Array(0, 0.133333, 0.36, 0.553333, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.893333, 0.893333, 0.893333, 1, 0.0865385, 0.0865385, 0.0865385, 1, 0.191206, 0.191206, 0.191206, 1, 1, 1, 1, 1)
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -140,6 +290,50 @@ animation = &"Straight"
 position = Vector2(403, 841)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_x82ao")
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -174.0
+offset_right = 210.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "
+VOYAGER
+"
+label_settings = SubResource("LabelSettings_5r4nr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Title"]
+libraries = {
+"": SubResource("AnimationLibrary_wbhvh")
+}
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="CanvasLayer/Title"]
+material = SubResource("CanvasItemMaterial_phh6f")
+position = Vector2(47, 58)
+amount = 3
+lifetime = 1.3
+texture = ExtResource("16_2cnbo")
+emission_shape = 4
+emission_points = PackedVector2Array(0, 0, 150, 0, 300, 0)
+emission_colors = PackedColorArray()
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+scale_amount_min = 0.7
+scale_amount_max = 1.3
+color_ramp = SubResource("Gradient_j32ot")
+anim_speed_min = 2.0
+anim_speed_max = 2.0
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

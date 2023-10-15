@@ -12,9 +12,10 @@ extends Control
 func _ready():
 	$CanvasLayer/PlayerSprite.play("Straight")
 	$CanvasLayer/EnginesSprite.play("default")
+	$CanvasLayer/Title/AnimationPlayer.play("title_jump")
 func _on_start_button_pressed():
-	get_tree().change_scene_to_file("res://MainScenes/gameplay.tscn")
 
+	get_tree().change_scene_to_file("res://MainScenes/tutorial_screen.tscn")
 
 func _on_quit_button_pressed():
 	get_tree().quit()

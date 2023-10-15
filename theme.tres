@@ -1,13 +1,13 @@
 [gd_resource type="Theme" load_steps=18 format=3 uid="uid://ggybb3lf484f"]
 
-[ext_resource type="Texture2D" uid="uid://c0lt8ohoo8edp" path="res://Textures/ButtonGui.png" id="1_1xcac"]
+[ext_resource type="Texture2D" uid="uid://c0lt8ohoo8edp" path="res://Textures/GUI/ButtonGui.png" id="1_1xcac"]
 [ext_resource type="FontFile" uid="uid://bdgcqx2r4hwha" path="res://PixelEmulatorFont.ttf" id="1_jhtv4"]
 [ext_resource type="FontFile" uid="uid://cvdqaqm4uybfn" path="res://dogicapixelbold.ttf" id="2_olhjb"]
-[ext_resource type="Texture2D" uid="uid://nts4fswn8qwv" path="res://Textures/panelTexture.png" id="3_gepmb"]
-[ext_resource type="Texture2D" uid="uid://dnjjlirssqig6" path="res://Textures/Slider_Knob.png" id="3_t1lrs"]
-[ext_resource type="Texture2D" uid="uid://co50yr3vufph0" path="res://Textures/Slider_Tick.png" id="4_cmjkb"]
-[ext_resource type="Texture2D" uid="uid://b1qctqe82302f" path="res://Textures/Slider_Tick3.png" id="5_hc06g"]
-[ext_resource type="Texture2D" uid="uid://defp8o2qat4f7" path="res://Textures/Slider_Tick2.png" id="5_nxfvn"]
+[ext_resource type="Texture2D" uid="uid://nts4fswn8qwv" path="res://Textures/GUI/panelTexture.png" id="3_gepmb"]
+[ext_resource type="Texture2D" uid="uid://dnjjlirssqig6" path="res://Textures/GUI/Slider_Knob.png" id="3_t1lrs"]
+[ext_resource type="Texture2D" uid="uid://co50yr3vufph0" path="res://Textures/GUI/Slider_Tick.png" id="4_cmjkb"]
+[ext_resource type="Texture2D" uid="uid://b1qctqe82302f" path="res://Textures/GUI/Slider_Tick3.png" id="5_hc06g"]
+[ext_resource type="Texture2D" uid="uid://defp8o2qat4f7" path="res://Textures/GUI/Slider_Tick2.png" id="5_nxfvn"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_drnsc"]
 texture = ExtResource("1_1xcac")

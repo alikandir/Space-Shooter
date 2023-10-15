@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1qctqe82302f"
-path="res://.godot/imported/Slider_Tick3.png-13c8a840c8a6a0bef281ddc86644bfeb.ctex"
+uid="uid://bpj5vhfncctic"
+path="res://.godot/imported/WKey.png-79e13b67f4a4f10ebc67c9764eb2cb91.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Slider_Tick3.png"
-dest_files=["res://.godot/imported/Slider_Tick3.png-13c8a840c8a6a0bef281ddc86644bfeb.ctex"]
+source_file="res://Textures/GUI/WKey.png"
+dest_files=["res://.godot/imported/WKey.png-79e13b67f4a4f10ebc67c9764eb2cb91.ctex"]
 
 [params]
 

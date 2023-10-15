@@ -5,17 +5,16 @@ var playerLevel:int=1
 var highScoreReached:bool=false
 var isAlive:bool=true
 @export var playerHealth:int=3
-
 @export var shieldTime:float=5
 @export var invincibilityTime:float=1
-@export var moveSpeed: float=280
+@export var moveSpeed: float=240
 @export var playerDamage:float=1
 var fireDelay:float=0.4
 var normalFireDelay 
 var rapidFireDelay: float = 0.06
 
-@export var minPowerupSpawnTime:=10
-@export var maxPowerupSpawnTime:=20
+@export var minPowerupSpawnTime:=10.0
+@export var maxPowerupSpawnTime:=20.0
 
 var bulletUpgradeTimes:int=0
 ## scores:
@@ -26,7 +25,7 @@ var meteorScore:float=300
 @export var dodgeChance:float=0
 var maxDodgeChance:float=0.7
 
-var enemyHealths:Dictionary={"smallEnemyHealth":2.0, "midEnemyHealth":5.0, "bigEnemyHealth":7.0, "toughEnemyHealth":8.0}
+var enemyHealths:Dictionary={"smallEnemyHealth":2.0, "midEnemyHealth":10.0, "bigEnemyHealth":14.0, "toughEnemyHealth":16.0}
 func _ready():
 	var saveFile=FileAccess.open("user://save.data",FileAccess.READ)
 	if saveFile!=null:
@@ -34,15 +33,15 @@ func _ready():
 	else:
 		highScore=0
 		SaveGame()
-		
+
 func level_up():
 	playerLevel+=1
 
-func processLevelUp(name:String):
+func processLevelUp(LevelUpName:String):
 	increase_enemy_health()
 	print_debug(enemyHealths)
 	
-	match name:
+	match LevelUpName:
 		"Fire Rate Up":
 			### Fire rate up:
 			fireDelay*=0.8
@@ -71,8 +70,8 @@ func processLevelUp(name:String):
 			playerDamage+=0.8
 		"Power-ups Spawn Faster":
 			### Power ups spawn faster
-			minPowerupSpawnTime-=0.5
-			maxPowerupSpawnTime-=0.5
+			minPowerupSpawnTime-=0.8
+			maxPowerupSpawnTime-=0.8
 			if minPowerupSpawnTime<3:
 				minPowerupSpawnTime=3
 			if maxPowerupSpawnTime<4:
@@ -96,10 +95,9 @@ func reset_game():
 	playerHealth=3
 	shieldTime=5
 	invincibilityTime=1
-	moveSpeed=280
+	moveSpeed=240
 	playerDamage=1
 	fireDelay=0.4
-	normalFireDelay 
 	rapidFireDelay= 0.06
 	minPowerupSpawnTime=10
 	maxPowerupSpawnTime=20
@@ -111,27 +109,27 @@ func reset_game():
 
 	dodgeChance=0
 	maxDodgeChance=0.7
-	enemyHealths={"smallEnemyHealth":2.0, "midEnemyHealth":5.0, "bigEnemyHealth":7.0, "toughEnemyHealth":8.0}
+	enemyHealths={"smallEnemyHealth":2.0, "midEnemyHealth":10.0, "bigEnemyHealth":14.0, "toughEnemyHealth":16.0}
 	highScoreReached=false
 func increase_enemy_health():
 	if playerLevel>50:
 		for key in enemyHealths.keys():
-			enemyHealths[key]*=1.25
+			enemyHealths[key]*=1.20
 	elif playerLevel>30:
 		for key in enemyHealths.keys():
-			enemyHealths[key]*=1.20
+			enemyHealths[key]*=1.15
 	elif playerLevel>15:
 		for key in enemyHealths.keys():
-			enemyHealths[key]*=1.20
+			enemyHealths[key]*=1.1
 	elif playerLevel>10:
 		for key in enemyHealths.keys():
-			enemyHealths[key]*=1.15
+			enemyHealths[key]*=1.2
 	elif playerLevel>3:
 		for key in enemyHealths.keys():
-			enemyHealths[key]*=1.1
+			enemyHealths[key]*=1.05
 	elif playerLevel>0:
 		for key in enemyHealths.keys():
-			enemyHealths[key]*=1.1
+			enemyHealths[key]*=1.05
 func SaveGame():
 	
 	var saveFile=FileAccess.open("user://save.data",FileAccess.WRITE)

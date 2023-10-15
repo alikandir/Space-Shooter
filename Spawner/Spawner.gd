@@ -30,10 +30,10 @@ var plMeteor=preload("res://Meteor/Meteor.tscn")
 
 var firstSpawnTime:float=2.0
 var easySpawnTime:float=2.5
-var nextSpawnTime:float=6
+var nextSpawnTime:float=10
 
 
-@export var minSpawnTime:float=2.0
+@export var minSpawnTime:float=6.0
 
 
 
@@ -49,8 +49,8 @@ func _on_spawn_timer_timeout():
 	var maxSpawnAmount:int
 	
 	if PlayerStats.playerLevel>35:
-		minSpawnAmount=3
-		maxSpawnAmount=6
+		minSpawnAmount=2
+		maxSpawnAmount=5
 
 	elif PlayerStats.playerLevel>30:
 		minSpawnAmount=2
@@ -66,12 +66,12 @@ func _on_spawn_timer_timeout():
 		for i in randi_range(minSpawnAmount,maxSpawnAmount):
 			Spawn()
 	if PlayerStats.playerLevel>20:
-		minSpawnAmount=1
-		maxSpawnAmount=4
+		minSpawnAmount=2
+		maxSpawnAmount=3
 		for i in randi_range(minSpawnAmount,maxSpawnAmount):
 			Spawn()
 	elif PlayerStats.playerLevel>15:
-		minSpawnAmount=1
+		minSpawnAmount=2
 		maxSpawnAmount=3
 		for i in randi_range(minSpawnAmount,maxSpawnAmount):
 			Spawn()
@@ -80,7 +80,7 @@ func _on_spawn_timer_timeout():
 		maxSpawnAmount=2
 		for i in randi_range(minSpawnAmount,maxSpawnAmount):
 			Spawn()
-	elif PlayerStats.playerLevel>3:
+	elif PlayerStats.playerLevel>4:
 		minSpawnAmount=1
 		maxSpawnAmount=1
 		for i in randi_range(minSpawnAmount,maxSpawnAmount):
@@ -97,7 +97,7 @@ func _on_spawn_timer_timeout():
 
 func _on_powerup_timer_timeout():
 	powerupSpawnTimer.start(randf_range(PlayerStats.minPowerupSpawnTime,PlayerStats.maxPowerupSpawnTime))
-	if randf()<0.07:
+	if randf()<0.08:
 		var extraLife=plExtraLife.instantiate()
 		extraLife.position=getRandomSpawnPos()
 		get_tree().current_scene.add_child(extraLife)
@@ -140,19 +140,19 @@ func _on_easy_spawn_timer_timeout():
 	var maxSpawnEasyAmount:int
 	
 	if PlayerStats.playerLevel>30:
-		minSpawnEasyAmount=1
-		maxSpawnEasyAmount=4
+		minSpawnEasyAmount=5
+		maxSpawnEasyAmount=10
 		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
 			SpawnEasy()
 	elif PlayerStats.playerLevel>25:
 
-		minSpawnEasyAmount=1
-		maxSpawnEasyAmount=3
+		minSpawnEasyAmount=4
+		maxSpawnEasyAmount=9
 		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
 			SpawnEasy()
 	if PlayerStats.playerLevel>20:
-		minSpawnEasyAmount=1
-		maxSpawnEasyAmount=3
+		minSpawnEasyAmount=4
+		maxSpawnEasyAmount=7
 		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
 			SpawnEasy()
 	elif PlayerStats.playerLevel>15:
@@ -161,23 +161,23 @@ func _on_easy_spawn_timer_timeout():
 		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
 			SpawnEasy()
 	elif PlayerStats.playerLevel>10:
-		minSpawnEasyAmount=1
+		minSpawnEasyAmount=2
 		maxSpawnEasyAmount=4
 		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
 			SpawnEasy()
 	elif PlayerStats.playerLevel>5:
-		minSpawnEasyAmount=3
+		minSpawnEasyAmount=1
 		maxSpawnEasyAmount=5
 		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
 			SpawnEasy()
 	elif PlayerStats.playerLevel>3:
 		minSpawnEasyAmount=2
-		maxSpawnEasyAmount=5
+		maxSpawnEasyAmount=4
 		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
 			SpawnEasy()
 	elif PlayerStats.playerLevel>0:
-		minSpawnEasyAmount=2
-		maxSpawnEasyAmount=4
+		minSpawnEasyAmount=1
+		maxSpawnEasyAmount=2
 		for i in randi_range(minSpawnEasyAmount,maxSpawnEasyAmount):
 			SpawnEasy()
 			

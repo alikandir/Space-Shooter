@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://defp8o2qat4f7"
-path="res://.godot/imported/Slider_Tick2.png-96634fffb4cb1cb90b8ce2045ca511cc.ctex"
+path="res://.godot/imported/Slider_Tick2.png-6bcff69e02372fb1809e32deaddc917b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Slider_Tick2.png"
-dest_files=["res://.godot/imported/Slider_Tick2.png-96634fffb4cb1cb90b8ce2045ca511cc.ctex"]
+source_file="res://Textures/GUI/Slider_Tick2.png"
+dest_files=["res://.godot/imported/Slider_Tick2.png-6bcff69e02372fb1809e32deaddc917b.ctex"]
 
 [params]
 
