@@ -1,5 +1,4 @@
 extends Control
-
 @onready var button1 = $HBoxContainer/Button1
 @onready var button2 = $HBoxContainer/Button2
 @onready var button3 = $HBoxContainer/Button3
